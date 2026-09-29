@@ -202,9 +202,10 @@ const CONFIG = {
 
     makeSprites() {
       const d = this.dark;
-      const rbcEdge = d ? 'rgba(79,182,187,0.60)' : 'rgba(79,182,187,0.55)';
-      const rbcMid = d ? 'rgba(79,182,187,0.28)' : 'rgba(79,182,187,0.28)';
-      const rbcCore = d ? 'rgba(79,182,187,0.08)' : 'rgba(223,242,243,0.40)';
+      // red blood cells: deep red rim, paler centre (biconcave disc)
+      const rbcEdge = d ? 'rgba(232,64,70,0.75)' : 'rgba(200,24,36,0.62)';
+      const rbcMid = d ? 'rgba(224,40,46,0.40)' : 'rgba(224,40,46,0.36)';
+      const rbcCore = d ? 'rgba(240,120,120,0.14)' : 'rgba(250,190,190,0.30)';
       const rbc = (blur) => this.makeSprite(128, (g, s) => {
         if (blur) g.filter = 'blur(5px)';
         const grd = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s * 0.42);
@@ -332,8 +333,8 @@ const CONFIG = {
         const y = c.y + c.oy - m.py * 30 * c.z;
         // keep the text side of the hero calm
         let fade = 1;
-        if (!this.dark && w > 960) fade = clamp((x / w - 0.42) / 0.25, 0, 1) * 0.75 + 0.03;
-        else if (!this.dark) fade = 0.3;
+        if (!this.dark && w > 960) fade = clamp((x / w - 0.4) / 0.2, 0, 1) * 0.85 + 0.04;
+        else if (!this.dark) fade = 0.35;
         if (fade <= 0.01) continue;
         ctx.globalAlpha = (0.3 + c.z * 0.5) * fade;
         ctx.save();
