@@ -65,6 +65,7 @@ body {
   -webkit-font-smoothing: antialiased; overflow-x: hidden;
 }
 img, svg { display: block; max-width: 100%; }
+main { overflow-x: clip; } /* 3D reveal transforms must never cause sideways scrolling */
 a { color: inherit; }
 h1, h2, h3, h4 { font-family: var(--font-head); color: var(--navy); margin: 0; letter-spacing: -.02em; }
 p { margin: 0; }
@@ -191,7 +192,25 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .cells-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .hero__grid { position: relative; display: grid; grid-template-columns: 1.12fr .88fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
-.hero__title { font-size: clamp(2.05rem, 3.9vw, 3.4rem); line-height: 1.12; font-weight: 600; letter-spacing: -.025em; margin: 20px 0 22px; max-width: 21ch; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.hero__title { font-size: clamp(1.9rem, 3.3vw, 2.85rem); line-height: 1.15; font-weight: 600; letter-spacing: -.025em; margin: 20px 0 22px; }
+/* "Best" and "in Bangalore" stay; the specialty in between rotates.
+   The block keeps a fixed height (3 lines) so nothing below it moves. */
+.hero__title-vis { display: block; height: calc(3 * 1.15em + 18px); }
+@media (max-width: 359px) { .hero__title-vis { height: auto; min-height: calc(3 * 1.15em + 18px); } }
+.hero__line { display: block; }
+.rotator { color: var(--teal-700); }
+.rotator__word { display: inline; }
+.rotator__char { display: inline-block; transform-origin: 50% 100%; }
+.rotator__bar {
+  position: relative; display: block; margin-top: 14px; height: 4px; width: 88px; border-radius: 4px; overflow: hidden; background: var(--teal-100);
+}
+.rotator__bar::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, var(--teal), var(--red));
+  transform-origin: left; transform: scaleX(0);
+}
+.hero__title.is-timing .rotator__bar::after { animation: rotBar var(--rot-ms, 3000ms) linear forwards; }
+@keyframes rotBar { to { transform: scaleX(1); } }
 .hero__lead { font-size: clamp(1.02rem, 1.25vw, 1.12rem); color: var(--ink-2); max-width: 58ch; }
 .hero__points { display: grid; gap: 12px; margin-top: 26px; }
 .hero__points li { display: flex; align-items: center; gap: 12px; font-size: .96rem; color: var(--ink); font-weight: 500; }
@@ -662,3 +681,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
   .js [data-reveal], .js [data-split] .w__i { opacity: 1 !important; filter: none !important; transform: none !important; clip-path: none !important; }
 }
+
+/* Reduced motion: full headline, no rotation */
+.hero__title.is-static .hero__title-vis { display: none; }
+.hero__title.is-static .sr-only { position: static; width: auto; height: auto; margin: 0; overflow: visible; clip: auto; white-space: normal; }

@@ -359,6 +359,47 @@ const CONFIG = {
 
   $$('.cells-canvas').forEach((cv) => new CellField(cv, { dark: cv.classList.contains('cells-canvas--dark') }));
 
+  /* ---------- Hero headline rotator ---------- */
+  const rot = $('[data-rotator]');
+  if (rot && !reduceMotion) {
+    const words = rot.dataset.words.split('|');
+    const el = $('.rotator__word', rot);
+    const HOLD = 2600;
+    let i = 0;
+    const title = rot.closest('h1');
+    title.style.setProperty('--rot-ms', `${HOLD}ms`);
+    // one span per letter; spaces stay real spaces so long phrases can wrap
+    const chars = (w) => w.split(' ').map((word) => `<span style="display:inline-block;white-space:nowrap">${
+      word.split('').map((ch) => `<span class="rotator__char">${ch}</span>`).join('')}</span>`).join(' ');
+    const animateChars = (dir) => {
+      const cs = $$('.rotator__char', el);
+      return Promise.all(cs.map((c, k) => c.animate(
+        dir === 'in'
+          ? [{ opacity: 0, filter: 'blur(8px)', transform: 'rotateX(-80deg) translateY(.2em)' }, { opacity: 1, filter: 'blur(0)', transform: 'none' }]
+          : [{ opacity: 1, filter: 'blur(0)', transform: 'none' }, { opacity: 0, filter: 'blur(8px)', transform: 'rotateX(80deg) translateY(-.2em)' }],
+        { duration: dir === 'in' ? 520 : 360, delay: k * (dir === 'in' ? 28 : 14), easing: 'cubic-bezier(.22,.8,.24,1)', fill: 'both' }
+      ).finished));
+    };
+    let paused = false;
+    const cycle = async () => {
+      title.classList.remove('is-timing'); void title.offsetWidth; title.classList.add('is-timing');
+      await new Promise((r) => setTimeout(r, HOLD));
+      while (paused || document.hidden) await new Promise((r) => setTimeout(r, 300));
+      await animateChars('out');
+      i = (i + 1) % words.length;
+      el.innerHTML = chars(words[i]);
+      await animateChars('in');
+      cycle();
+    };
+    el.innerHTML = chars(words[0]);
+    title.addEventListener('pointerenter', () => { paused = true; });
+    title.addEventListener('pointerleave', () => { paused = false; });
+    setTimeout(cycle, 900);
+  } else if (rot) {
+    // Reduced motion: show the full headline instead of rotating it
+    rot.closest('h1').classList.add('is-static');
+  }
+
   /* ---------- Treatments filter ---------- */
   const filter = $('.treat-filter');
   const groups = $('[data-treatments]');
