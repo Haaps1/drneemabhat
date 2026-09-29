@@ -487,6 +487,51 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .testi-card small { font-size: .84rem; color: var(--ink-3); }
 
 /* ==========================================================================
+   OPD timings
+   ========================================================================== */
+.timings__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 6vw, 88px); align-items: start; }
+.timings__head { position: sticky; top: 110px; }
+.timings__legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 26px 0 28px; }
+.timings__legend li { display: inline-flex; align-items: center; gap: 8px; font-size: .88rem; color: var(--ink-2); }
+.timings__legend li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--dot); }
+.slot--opd { --dot: var(--teal); }
+.slot--ecity { --dot: var(--red); }
+.slot--therapy { --dot: var(--navy); }
+.note { padding: 18px 20px; border-radius: 18px; background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--teal); }
+.note + .note { margin-top: 12px; }
+.note--sos { border-left-color: var(--red); }
+.note__title { font-family: var(--font-head); font-weight: 600; color: var(--navy); font-size: .98rem; margin-bottom: 4px; }
+.note p:not(.note__title) { font-size: .92rem; color: var(--ink-2); line-height: 1.55; }
+.note strong { color: var(--navy); font-weight: 600; }
+
+.week { border-radius: var(--radius-lg); background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow); padding: 10px; }
+.day {
+  position: relative; display: grid; grid-template-columns: 130px 1fr; gap: 16px; align-items: start;
+  padding: 16px 18px; border-radius: 18px; transition: background-color .35s;
+}
+.day + .day { border-top: 1px solid var(--line); }
+.day:hover { background: var(--teal-50); }
+.day__name { font-family: var(--font-head); font-weight: 600; color: var(--navy); padding-top: 6px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+.day__today {
+  display: none; font-style: normal; font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600;
+  padding: 2px 9px; border-radius: 999px; background: var(--red); color: #fff;
+}
+.day.is-today { background: linear-gradient(90deg, var(--teal-50), #fff); box-shadow: inset 3px 0 0 var(--teal); border-top-color: transparent; }
+.day.is-today .day__today { display: inline-block; }
+.day__slots { display: grid; gap: 8px; }
+.slot {
+  display: grid; grid-template-columns: 118px 1fr; gap: 12px; align-items: baseline; padding: 9px 12px; border-radius: 12px;
+  background: var(--cream); border: 1px solid transparent; position: relative; transition: border-color .3s, transform .4s var(--ease);
+}
+.slot:hover { border-color: var(--dot); transform: translateX(4px); }
+.slot::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 3px; background: var(--dot); }
+.slot time { font-family: var(--font-head); font-weight: 600; font-size: .88rem; color: var(--navy); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.slot span { font-size: .9rem; color: var(--ink-2); line-height: 1.45; }
+.day__off { font-size: .92rem; color: var(--ink-3); padding-top: 6px; }
+.day--closed .day__name { color: var(--ink-3); }
+.contact-list__link { color: var(--teal-700) !important; font-size: inherit !important; font-family: inherit !important; text-decoration: underline !important; text-underline-offset: 2px; }
+
+/* ==========================================================================
    6. Appointment
    ========================================================================== */
 .appointment__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 100px); align-items: start; }
@@ -612,6 +657,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .hero__visual { margin-top: 20px; }
   .hv { width: min(88vw, 440px); }
   .about__side { position: static; }
+  .timings__grid { grid-template-columns: 1fr; }
+  .timings__head { position: static; }
 
   .section-head--split { grid-template-columns: 1fr; gap: 0; }
   .section-head--split .section-head__lead { margin-top: 16px; }
@@ -659,6 +706,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .footer__grid { grid-template-columns: 1fr; }
   .footer__base { flex-direction: column; }
   .map iframe { height: 200px; }
+  .day { grid-template-columns: 1fr; gap: 8px; padding: 14px 10px; }
+  .day__name { flex-direction: row; align-items: center; padding-top: 0; }
+  .slot { grid-template-columns: 1fr; gap: 2px; padding: 9px 12px 9px 14px; }
 
   .mobile-cta {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; display: grid; grid-template-columns: 1.5fr 1fr; gap: 10px;

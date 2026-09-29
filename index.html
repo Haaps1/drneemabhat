@@ -36,7 +36,16 @@
     "medicalSpecialty": ["Hematologic", "Oncologic", "Pediatric"],
     "knowsLanguage": ["English", "Hindi", "Kannada", "Telugu", "Tamil"],
     "alumniOf": {"@type": "Hospital", "name": "Penn State Health"},
-    "hospitalAffiliation": {"@type": "Hospital", "name": "Bhagawan Mahaveer Jain Hospital", "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}},
+    "hospitalAffiliation": [
+      {"@type": "Hospital", "name": "Apollo Hospitals, Bannerghatta Road", "address": {"@type": "PostalAddress", "streetAddress": "Bannerghatta Road", "addressLocality": "Bengaluru", "addressCountry": "IN"}},
+      {"@type": "Hospital", "name": "Apollo One & Apollo Cradle, Electronic City", "address": {"@type": "PostalAddress", "streetAddress": "Hosa Road, Electronic City", "addressLocality": "Bengaluru", "addressCountry": "IN"}},
+      {"@type": "Hospital", "name": "Bhagawan Mahaveer Jain Hospital", "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}}
+    ],
+    "openingHoursSpecification": [
+      {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "11:00", "closes": "16:00", "description": "OPD — Apollo Hospitals, Bannerghatta Road"},
+      {"@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "14:00", "closes": "16:00", "description": "Apollo One & Apollo Cradle, Hosa Road, Electronic City"},
+      {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "17:00", "closes": "19:00", "description": "Therapy Clinic"}
+    ],
     "availableService": [
       {"@type": "MedicalTherapy", "name": "Anaemia treatment"},
       {"@type": "MedicalTherapy", "name": "Thalassemia treatment"},
@@ -68,6 +77,7 @@
         <li><a href="#treatments">Treatments</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#timings">Timings</a></li>
         <li><a href="#appointment">Contact</a></li>
         <li class="nav__links-cta"><a class="btn btn--primary" href="#appointment">Book Appointment</a></li>
       </ul>
@@ -329,8 +339,67 @@
       </div>
     </section>
 
-    <!-- 6. Appointment -->
-    <section class="section section--cream appointment" id="appointment" aria-labelledby="appt-title">
+    <!-- 6. OPD timings -->
+    <section class="section section--cream timings" id="timings" aria-labelledby="timings-title">
+      <div class="container timings__grid">
+        <div class="timings__head">
+          <p class="kicker" data-reveal="blur">OPD Timings</p>
+          <h2 id="timings-title" class="h2" data-split>When and where to consult Dr. Bhat</h2>
+          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Monday to Saturday at Apollo Hospitals, Bannerghatta Road, with evening sessions at the Therapy Clinic. Please call or WhatsApp to book before visiting.</p>
+
+          <ul class="timings__legend" data-reveal="blur" style="--d:.15s" aria-label="Locations">
+            <li class="slot--opd">Apollo Bannerghatta Road — OPD</li>
+            <li class="slot--ecity">Apollo One &amp; Apollo Cradle, Electronic City</li>
+            <li class="slot--therapy">Therapy Clinic</li>
+          </ul>
+
+          <div class="note" data-reveal="rise">
+            <p class="note__title">Second Wednesday of every month</p>
+            <p><strong>10 AM – 1 PM:</strong> Janappana and Ramnagara OPD. Then Apollo Bannerghatta Road and the Therapy Clinic as usual.</p>
+          </div>
+          <div class="note note--sos" data-reveal="rise" style="--d:.08s">
+            <p class="note__title">SOS availability</p>
+            <p>Digvish Hospital · AV Hospital (Outer Ring Road) · Promed Hospital (Banashankari 2nd Stage)</p>
+          </div>
+        </div>
+
+        <div class="week" data-reveal="focus" style="--d:.1s">
+          <ol class="week__days" data-week aria-label="Weekly OPD schedule">
+              <li class="day" data-day="1">
+                <p class="day__name">Monday<em class="day__today">Today</em></p>
+                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
+              </li>
+              <li class="day" data-day="2">
+                <p class="day__name">Tuesday<em class="day__today">Today</em></p>
+                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
+              </li>
+              <li class="day" data-day="3">
+                <p class="day__name">Wednesday<em class="day__today">Today</em></p>
+                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
+              </li>
+              <li class="day" data-day="4">
+                <p class="day__name">Thursday<em class="day__today">Today</em></p>
+                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
+              </li>
+              <li class="day" data-day="5">
+                <p class="day__name">Friday<em class="day__today">Today</em></p>
+                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--ecity"><time>2 – 4 PM</time><span>Apollo One &amp; Apollo Cradle, Hosa Road, Electronic City</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
+              </li>
+              <li class="day" data-day="6">
+                <p class="day__name">Saturday<em class="day__today">Today</em></p>
+                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
+              </li>
+              <li class="day day--closed" data-day="0">
+                <p class="day__name">Sunday<em class="day__today">Today</em></p>
+                <p class="day__off">No regular OPD</p>
+              </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Appointment -->
+    <section class="section appointment" id="appointment" aria-labelledby="appt-title">
       <div class="container appointment__grid">
         <div class="appointment__copy">
           <p class="kicker" data-reveal="blur">Book an Appointment</p>
@@ -347,16 +416,16 @@
             </li>
             <li>
               <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
-              <div><small>Practice</small><span data-location>Bhagawan Mahaveer Jain Hospital, Bangalore</span><em class="contact-list__sub">Millers Road, Vasanth Nagar, Bengaluru</em></div>
+              <div><small>OPD</small><span data-location>Apollo Hospitals, Bannerghatta Road</span><em class="contact-list__sub">Monday – Saturday, 11 AM – 4 PM</em></div>
             </li>
             <li>
               <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-              <div><small>Consultations</small><span>By appointment</span><em class="contact-list__sub">Timings are confirmed when you call or WhatsApp</em></div>
+              <div><small>Evenings</small><span>Therapy Clinic</span><em class="contact-list__sub">Monday – Saturday, 5 – 7 PM · <a class="contact-list__link" href="#timings">Full timings</a></em></div>
             </li>
           </ul>
           <div class="map" data-reveal="focus" style="--d:.2s">
-            <iframe title="Map showing Bhagawan Mahaveer Jain Hospital, Bengaluru" src="https://maps.google.com/maps?q=Bhagwan%20Mahaveer%20Jain%20Hospital%2C%20Millers%20Road%2C%20Bengaluru&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <a class="map__link" href="https://www.google.com/maps/search/?api=1&amp;query=Bhagwan+Mahaveer+Jain+Hospital+Millers+Road+Bengaluru" target="_blank" rel="noopener">
+            <iframe title="Map showing Apollo Hospitals, Bannerghatta Road, Bengaluru" src="https://maps.google.com/maps?q=Apollo%20Hospitals%2C%20Bannerghatta%20Road%2C%20Bengaluru&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <a class="map__link" href="https://www.google.com/maps/search/?api=1&amp;query=Apollo+Hospitals+Bannerghatta+Road+Bengaluru" target="_blank" rel="noopener">
               Get directions
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
             </a>
@@ -434,7 +503,8 @@
         <ul>
           <li><a href="tel:+917899756677" data-phone-link data-phone-text>+91 78997 56677</a></li>
           <li><a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link>WhatsApp</a></li>
-          <li><span data-location>Bhagawan Mahaveer Jain Hospital, Bangalore</span></li>
+          <li><span data-location>Apollo Hospitals, Bannerghatta Road</span></li>
+          <li><a href="#timings">OPD Timings</a></li>
           <li><a href="#appointment">Book an Appointment</a></li>
         </ul>
       </div>

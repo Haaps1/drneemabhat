@@ -7,7 +7,7 @@ const CONFIG = {
   phoneDisplay: '+91 78997 56677',
   phoneE164: '+917899756677',
   whatsapp: '917899756677', // digits only, with country code
-  location: 'Bhagawan Mahaveer Jain Hospital, Bangalore',
+  location: 'Apollo Hospitals, Bannerghatta Road',
 };
 
 (() => {
@@ -398,6 +398,14 @@ const CONFIG = {
   } else if (rot) {
     // Reduced motion: show the full headline instead of rotating it
     rot.closest('h1').classList.add('is-static');
+  }
+
+  /* ---------- OPD timings: highlight today (India time) ---------- */
+  const week = $('[data-week]');
+  if (week) {
+    const istDay = new Date(Date.now() + (330 + new Date().getTimezoneOffset()) * 60000).getDay();
+    const today = $(`.day[data-day="${istDay}"]`, week);
+    if (today) { today.classList.add('is-today'); today.setAttribute('aria-current', 'date'); }
   }
 
   /* ---------- Treatments filter ---------- */
