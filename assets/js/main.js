@@ -4,10 +4,10 @@
 
 /* Contact details — update here and every phone link / label on the page follows. */
 const CONFIG = {
-  phoneDisplay: '+91 00000 00000',
-  phoneE164: '+910000000000',
-  whatsapp: '910000000000', // digits only, with country code
-  location: 'Bangalore, Karnataka',
+  phoneDisplay: '+91 78997 56677',
+  phoneE164: '+917899756677',
+  whatsapp: '917899756677', // digits only, with country code
+  location: 'Bhagawan Mahaveer Jain Hospital, Bangalore',
 };
 
 (() => {
@@ -22,6 +22,7 @@ const CONFIG = {
 
   /* ---------- Contact config ---------- */
   $$('[data-phone-link]').forEach((a) => { a.href = `tel:${CONFIG.phoneE164}`; });
+  $$('[data-whatsapp-link]').forEach((a) => { a.href = `https://wa.me/${CONFIG.whatsapp}`; });
   $$('[data-phone-text]').forEach((el) => { el.textContent = CONFIG.phoneDisplay; });
   $$('[data-location]').forEach((el) => { el.textContent = CONFIG.location; });
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
@@ -480,6 +481,19 @@ const CONFIG = {
   if (reduceMotion && journey) {
     journey.style.setProperty('--p', 1);
     jsteps.forEach((s) => s.classList.add('is-active'));
+  }
+
+  /* ---------- Career timeline progress ---------- */
+  const career = $('[data-career]');
+  if (career && !reduceMotion) {
+    const list = $('.career__list', career);
+    const updateCareer = () => {
+      const r = list.getBoundingClientRect();
+      const p = clamp((window.innerHeight * 0.75 - r.top) / r.height, 0, 1);
+      list.style.setProperty('--cp', p.toFixed(4));
+    };
+    window.addEventListener('scroll', () => requestAnimationFrame(updateCareer), { passive: true });
+    updateCareer();
   }
 
   /* ---------- Languages greeting ---------- */

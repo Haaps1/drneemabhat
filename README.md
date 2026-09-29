@@ -10,15 +10,12 @@ assets/js/main.js       Interactions (cell canvas, reveals, tabs, BMT dial, jour
 assets/images/          Logo (transparent), logo mark (favicon)
 ```
 
-## Before going live
+## Updating content
 
-1. **Portrait** — add Dr. Bhat's professional photo as `assets/images/dr-neema-bhat.webp`
-   (portrait orientation, ~800×1000). Until it exists, the hero shows the logo mark instead.
-2. **Contact details** — set the phone / WhatsApp number and location in the `CONFIG`
-   object at the top of `assets/js/main.js` and replace the `+91 00000 00000` placeholders in `index.html`
-   (they're the no-JavaScript fallback).
-3. **Verify content** — confirm credentials, hospital affiliation, transplant numbers and
-   consultation languages (English, Kannada, Hindi) with Dr. Bhat.
+- **Contact details** live in the `CONFIG` object at the top of `assets/js/main.js`
+  (phone, WhatsApp, location). The same values are also in `index.html` as the no-JavaScript fallback.
+- **Portrait**: `assets/images/dr-neema-bhat.webp` (1200w) and `dr-neema-bhat-720.webp` (720w),
+  a transparent cut-out that sits in front of the hero arch. To swap it, replace both files with the same names.
 
 ## Notes
 

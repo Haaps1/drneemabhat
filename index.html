@@ -12,7 +12,7 @@
   <meta property="og:title" content="Dr. Neema Bhat | Hematologist &amp; Pediatric Oncologist in Bangalore">
   <meta property="og:description" content="Specialist care for blood disorders, blood cancers, childhood cancers and bone marrow transplantation in Bangalore.">
   <meta property="og:url" content="https://drneemabhat.com/">
-  <meta property="og:image" content="https://drneemabhat.com/assets/images/logo.png">
+  <meta property="og:image" content="https://drneemabhat.com/assets/images/dr-neema-bhat-720.webp">
   <meta name="twitter:card" content="summary_large_image">
 
   <script>document.documentElement.classList.add('js');</script>
@@ -22,6 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/images/dr-neema-bhat-720.webp" imagesrcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w" imagesizes="(max-width: 960px) 70vw, 420px">
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <script type="application/ld+json">
@@ -32,6 +33,7 @@
     "description": "Hematologist and Pediatric Oncologist in Bangalore providing specialist care for blood disorders, blood cancers, childhood cancers and bone marrow transplantation.",
     "url": "https://drneemabhat.com/",
     "image": "https://drneemabhat.com/assets/images/dr-neema-bhat.webp",
+    "alumniOf": [{"@type": "CollegeOrUniversity", "name": "Sri Devaraj Urs Medical College"}, {"@type": "Hospital", "name": "Cooper University Hospital"}, {"@type": "Hospital", "name": "Penn State Health"}],
     "logo": "https://drneemabhat.com/assets/images/logo.png",
     "medicalSpecialty": ["Hematologic", "Oncologic", "Pediatric"],
     "availableService": [
@@ -46,7 +48,10 @@
       "addressRegion": "Karnataka",
       "addressCountry": "IN"
     },
-    "areaServed": "Bangalore"
+    "areaServed": "Bangalore",
+    "telephone": "+91-78997-56677",
+    "knowsLanguage": ["English", "Hindi", "Kannada", "Telugu", "Tamil"],
+    "hospitalAffiliation": {"@type": "Hospital", "name": "Bhagawan Mahaveer Jain Hospital", "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}}
   }
   </script>
 </head>
@@ -103,11 +108,15 @@
           <ul class="hero__trust" data-reveal="blur" style="--d:.65s">
             <li>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-              Fellowship-trained in the USA
+              MD (USA) · Fellowship, Penn State Health
             </li>
             <li>
               <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-              12+ years of specialist practice
+              10+ years in hematology-oncology
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/></svg>
+              Head, BMT Unit · Bhagawan Mahaveer Jain Hospital
             </li>
           </ul>
         </div>
@@ -119,15 +128,16 @@
               <circle cx="250" cy="250" r="206" class="portrait__orbit-inner"/>
               <circle cx="250" cy="12" r="5" class="portrait__orbit-dot"/>
             </svg>
-            <div class="portrait__frame">
-              <!-- Replace with Dr. Neema Bhat's professional portrait (ideally a 4:5 cut-out or studio photo). -->
-              <img class="portrait__img" src="assets/images/dr-neema-bhat.webp"
-                   alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist in Bangalore, smiling in a clinical setting"
-                   width="800" height="1000" fetchpriority="high"
-                   onerror="this.closest('.portrait').classList.add('portrait--empty');this.remove();">
-              <div class="portrait__fallback" aria-hidden="true">
-                <img src="assets/images/logo-mark.png" alt="" width="229" height="275">
-              </div>
+            <div class="portrait__frame" aria-hidden="true">
+              <span class="portrait__glow"></span>
+            </div>
+            <div class="portrait__person">
+              <img class="portrait__img"
+                   src="assets/images/dr-neema-bhat.webp"
+                   srcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w"
+                   sizes="(max-width: 960px) 70vw, 420px"
+                   alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist in Bangalore, in a white coat with arms folded, smiling"
+                   width="1200" height="1893" fetchpriority="high" decoding="async">
             </div>
             <div class="float-card float-card--a">
               <span class="float-card__icon" aria-hidden="true">
@@ -143,7 +153,7 @@
             </div>
             <p class="portrait__caption">
               <strong>Dr. Neema Bhat</strong>
-              <span>MBBS · Fellowship, Hematology/Oncology &amp; BMT (USA)</span>
+              <span>MD (USA) · FAAP · Hemato-Oncologist &amp; BMT Physician</span>
             </p>
           </div>
         </div>
@@ -193,16 +203,19 @@
         </div>
         <div class="about__copy">
           <p class="kicker" data-reveal="blur">About Dr. Neema Bhat</p>
-          <h2 id="about-title" class="h2" data-split>A specialist for the most delicate moments in a family’s life</h2>
+          <h2 id="about-title" class="h2" data-split>A decade of dedicated hematology-oncology care</h2>
           <div class="prose" data-reveal="blur" style="--d:.15s">
             <p>
-              Dr. Neema Bhat is a Hematologist and Pediatric Oncologist in Bangalore with over 12 years of experience caring for children and adults with blood disorders and cancer. She trained in the United States, completing her residency at Cooper University Hospital, New Jersey, and a super-specialty fellowship in Hematology/Oncology and Bone Marrow Transplantation at Penn State Health, Hershey, Pennsylvania.
+              Dr. Neema Bhat is a Haemato-Oncologist based in Bangalore, with more than ten years of specialised experience treating blood disorders and blood cancers in both children and adults. She completed her MD in the United States, followed by a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation at Penn State Health — training that shapes how she diagnoses, stages and treats every patient who comes to her.
+            </p>
+            <p>
+              She currently serves as Program Director and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation, and has previously practised at BGS Gleneagles Global Hospitals and Fortis Hospitals in Bangalore.
             </p>
             <p>
               Her work spans benign and malignant blood conditions — from anaemia, thalassemia and bleeding disorders to leukaemia, lymphoma and childhood solid tumours — along with autologous and allogeneic stem cell transplantation for conditions such as aplastic anaemia and immunodeficiency disorders.
             </p>
             <p>
-              Families often come to her feeling overwhelmed. Her approach is steady and unhurried: a clear diagnosis, an honest conversation about options, and a treatment plan built around the patient — not the other way round.
+              Fluent in English, Hindi, Kannada, Telugu and Tamil, she is known for a patient-centric approach that prioritises clear communication and treatment plans built around each individual’s needs, rather than a one-size-fits-all protocol.
             </p>
           </div>
           <a class="text-link" href="#credentials" data-reveal="blur" style="--d:.25s">
@@ -233,21 +246,62 @@
             </p>
           </li>
           <li class="cred card spotlight" data-reveal="rise" style="--d:.08s">
-            <span class="cred__tag">Residency · USA</span>
-            <h3>Postgraduate Training</h3>
+            <span class="cred__tag">Postgraduate · USA</span>
+            <h3>MD</h3>
             <p>Cooper University Hospital, Camden, New Jersey</p>
           </li>
           <li class="cred card spotlight" data-reveal="rise" style="--d:.16s">
             <span class="cred__tag">Fellowship · USA</span>
-            <h3>Hematology/Oncology &amp; BMT</h3>
+            <h3>Pediatric Hematology, Oncology &amp; BMT</h3>
             <p>Penn State Health, Hershey, Pennsylvania</p>
+            <p class="cred__note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+              FAAP
+            </p>
           </li>
           <li class="cred card spotlight" data-reveal="rise" style="--d:.24s">
             <span class="cred__tag">Current role</span>
-            <h3>Senior Consultant</h3>
-            <p>Haematology &amp; Pediatric Oncology, Bangalore</p>
+            <h3>Program Director &amp; HOD, BMT Unit</h3>
+            <p>Bhagawan Mahaveer Jain Hospital, with Sankalp India Foundation</p>
           </li>
         </ol>
+
+        <div class="career" data-career>
+          <div class="career__head">
+            <p class="kicker" data-reveal="blur">Experience</p>
+            <h3 class="career__title" data-split>Career timeline</h3>
+          </div>
+          <ol class="career__list">
+            <li class="career-item is-current" data-reveal="blur">
+              <span class="career-item__year">2020 – Present</span>
+              <div>
+                <h4>Program Director &amp; HOD, BMT Unit</h4>
+                <p>Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation, Bangalore</p>
+              </div>
+            </li>
+            <li class="career-item" data-reveal="blur" style="--d:.06s">
+              <span class="career-item__year">2020 – 2023</span>
+              <div>
+                <h4>Consultant Hematologist, BMT Physician &amp; Pediatric Oncology</h4>
+                <p>Fortis Hospitals, Bangalore</p>
+              </div>
+            </li>
+            <li class="career-item" data-reveal="blur" style="--d:.12s">
+              <span class="career-item__year">2018 – 2020</span>
+              <div>
+                <h4>Consultant Hematologist, BMT Physician &amp; Pediatric Oncology</h4>
+                <p>BGS Gleneagles Global Hospitals, Bangalore</p>
+              </div>
+            </li>
+            <li class="career-item" data-reveal="blur" style="--d:.18s">
+              <span class="career-item__year">2018</span>
+              <div>
+                <h4>Clinical Hematologist &amp; BMT Physician</h4>
+                <p>Sankalp India Foundation — BMT Unit at Peopletree Hospitals, Yeshwanthpur, Bangalore</p>
+              </div>
+            </li>
+          </ol>
+        </div>
 
         <div class="cred-extra" data-reveal="blur">
           <p><span class="cred-extra__label">Research</span> 15+ publications in national and international journals; first place for oral presentation and best abstract at an annual resident &amp; fellow research day.</p>
@@ -383,7 +437,7 @@
           </div>
 
           <p class="bmt__exp" data-reveal="blur" style="--d:.3s">
-            Dr. Bhat has been part of over 75 allogeneic and 30 autologous transplants, with experience across both benign and malignant conditions.
+            Dr. Bhat leads the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital in partnership with Sankalp India Foundation, with experience across both benign and malignant conditions in children and adults.
           </p>
         </div>
 
@@ -523,11 +577,13 @@
         <div class="languages__copy">
           <p class="kicker" data-reveal="blur">Languages</p>
           <h2 id="lang-title" class="h2" data-split>Care in a language you’re comfortable with</h2>
-          <p data-reveal="blur" style="--d:.1s">Consultations are available in:</p>
+          <p data-reveal="blur" style="--d:.1s">Dr. Bhat consults fluently in five languages, so patients and families can ask every question in the language they think in.</p>
           <ul class="lang-chips" data-reveal="blur" style="--d:.15s">
             <li lang="en" data-hello="Hello">English</li>
             <li lang="kn" data-hello="ನಮಸ್ಕಾರ">ಕನ್ನಡ <span>Kannada</span></li>
             <li lang="hi" data-hello="नमस्ते">हिन्दी <span>Hindi</span></li>
+            <li lang="te" data-hello="నమస్కారం">తెలుగు <span>Telugu</span></li>
+            <li lang="ta" data-hello="வணக்கம்">தமிழ் <span>Tamil</span></li>
           </ul>
         </div>
       </div>
@@ -543,11 +599,15 @@
           <ul class="contact-list" data-reveal="blur" style="--d:.15s">
             <li>
               <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
-              <div><small>Call</small><a href="tel:+910000000000" data-phone-link data-phone-text>+91 00000 00000</a></div>
+              <div><small>Call</small><a href="tel:+917899756677" data-phone-link data-phone-text>+91 78997 56677</a></div>
+            </li>
+            <li>
+              <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.3 4.3 5 5l1.2-1.3-1.8-1-1 .8c-1-.4-1.8-1.2-2.2-2.2l.8-1-1-1.8L9 9.5z"/></svg></span>
+              <div><small>WhatsApp</small><a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link data-phone-text>+91 78997 56677</a></div>
             </li>
             <li>
               <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
-              <div><small>Location</small><span data-location>Bangalore, Karnataka</span></div>
+              <div><small>Practice</small><span data-location>Bhagawan Mahaveer Jain Hospital, Bangalore</span></div>
             </li>
           </ul>
         </div>
@@ -619,8 +679,9 @@
       <div class="footer__col">
         <h2>Contact</h2>
         <ul>
-          <li><a href="tel:+910000000000" data-phone-link data-phone-text>+91 00000 00000</a></li>
-          <li><span data-location>Bangalore, Karnataka</span></li>
+          <li><a href="tel:+917899756677" data-phone-link data-phone-text>+91 78997 56677</a></li>
+          <li><span data-location>Bhagawan Mahaveer Jain Hospital, Bangalore</span></li>
+          <li><a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link>WhatsApp</a></li>
           <li><a href="#appointment">Book a Consultation</a></li>
         </ul>
       </div>
@@ -637,7 +698,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
       Book Appointment
     </a>
-    <a class="mobile-cta__call" href="tel:+910000000000" data-phone-link>
+    <a class="mobile-cta__call" href="tel:+917899756677" data-phone-link>
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
       Call
     </a>
