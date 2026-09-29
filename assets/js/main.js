@@ -496,32 +496,6 @@ const CONFIG = {
     updateCareer();
   }
 
-  /* ---------- Languages greeting ---------- */
-  const greet = $('[data-greet]');
-  const chips = $$('.lang-chips li');
-  if (greet && chips.length) {
-    let gi = 0, gTimer = null;
-    const setGreet = (i) => {
-      gi = i;
-      chips.forEach((c, j) => c.classList.toggle('is-current', j === i));
-      const word = chips[i].dataset.hello;
-      const lang = chips[i].getAttribute('lang');
-      if (reduceMotion) { greet.textContent = word; greet.lang = lang; return; }
-      greet.classList.remove('is-in');
-      greet.classList.add('is-out');
-      setTimeout(() => {
-        greet.textContent = word; greet.lang = lang;
-        greet.classList.remove('is-out');
-        void greet.offsetWidth;
-        greet.classList.add('is-in');
-      }, 380);
-    };
-    const cycle = () => { clearInterval(gTimer); if (!reduceMotion) gTimer = setInterval(() => setGreet((gi + 1) % chips.length), 2800); };
-    chips.forEach((c, i) => c.addEventListener('pointerenter', () => { if (i !== gi) setGreet(i); cycle(); }));
-    chips[0].classList.add('is-current');
-    cycle();
-  }
-
   /* ---------- Appointment form → WhatsApp ---------- */
   const form = $('#appt-form');
   if (form) {

@@ -605,36 +605,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .jstep.is-active p { opacity: 1; }
 
 /* ==========================================================================
-   12. Languages
-   ========================================================================== */
-.languages__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
-.languages__greet {
-  position: relative; min-height: 220px; display: grid; place-items: center; border-radius: var(--radius-lg);
-  background: var(--blush-100); overflow: hidden;
-}
-.languages__greet::before, .languages__greet::after {
-  content: ""; position: absolute; border-radius: 50%; border: 1px solid rgba(100, 28, 69, .1);
-}
-.languages__greet::before { width: 300px; height: 300px; left: -80px; bottom: -150px; }
-.languages__greet::after { width: 200px; height: 200px; right: -50px; top: -80px; }
-.greet { position: relative; font-family: var(--font-head); font-weight: 600; font-size: clamp(2.4rem, 5.5vw, 4.4rem); color: var(--wine-700); letter-spacing: -.02em; line-height: 1.3; padding: 24px; text-align: center; }
-.greet.is-out { animation: greetOut .45s var(--ease-soft) forwards; }
-.greet.is-in { animation: greetIn .7s var(--ease) both; }
-@keyframes greetOut { to { opacity: 0; filter: blur(12px); transform: scale(1.06); } }
-@keyframes greetIn { from { opacity: 0; filter: blur(12px); transform: scale(.94); } to { opacity: 1; filter: blur(0); transform: none; } }
-.languages__copy .h2 { margin-bottom: 18px; }
-.languages__copy > p { color: var(--ink-2); }
-.lang-chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-.lang-chips li {
-  display: inline-flex; align-items: baseline; gap: 8px; padding: 12px 22px; border-radius: 999px;
-  border: 1px solid var(--line-strong); background: var(--surface); font-family: var(--font-head); font-weight: 500; color: var(--teal-900);
-  cursor: default; transition: border-color .3s, background-color .3s, transform .4s var(--ease);
-}
-.lang-chips li span { font-size: .8rem; color: var(--ink-3); font-weight: 400; }
-.lang-chips li:hover, .lang-chips li.is-current { border-color: var(--wine-700); background: var(--wine-100); }
-
-/* ==========================================================================
-   13. Appointment
+   12. Appointment
    ========================================================================== */
 .appointment { padding-block: var(--section-y); background: linear-gradient(180deg, var(--bg), var(--teal-50)); }
 .appointment__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 110px); align-items: start; }
@@ -680,7 +651,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .appt-form__note { font-size: .82rem; color: var(--ink-3); line-height: 1.55; }
 
 /* ==========================================================================
-   14. Footer
+   13. Footer
    ========================================================================== */
 .footer { background: var(--teal-950); color: var(--teal-200); padding: 80px 0 32px; }
 .footer__grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; }
@@ -763,7 +734,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
   .section-head--split { grid-template-columns: 1fr; gap: 0; }
   .section-head--split .section-head__lead { margin-top: 18px; }
-  .about__grid, .care__grid, .bmt__grid, .languages__inner, .appointment__grid { grid-template-columns: 1fr; }
+  .about__grid, .care__grid, .bmt__grid, .appointment__grid { grid-template-columns: 1fr; }
   .about__visual { order: 2; }
   .care__head { position: static; }
   .career { grid-template-columns: 1fr; gap: 20px; }
@@ -781,7 +752,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .jstep__node { grid-row: span 2; margin: 0; }
   .jstep h3 { padding-top: 10px; }
 
-  .languages__greet { min-height: 180px; }
 }
 
 @media (max-width: 767px) {
