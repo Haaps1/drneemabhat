@@ -13,7 +13,6 @@ const CONFIG = {
 (() => {
   'use strict';
 
-  const root = document.documentElement;
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -86,7 +85,6 @@ const CONFIG = {
     if (y < hero.offsetHeight * 0.5) navMap.forEach((l) => l.classList.remove('is-active'));
     header.style.setProperty('--progress', max > 0 ? (y / max).toFixed(4) : 0);
     if (mobileCta) mobileCta.classList.toggle('is-visible', y > hero.offsetHeight * 0.55);
-    updateJourney();
     ticking = false;
   };
   window.addEventListener('scroll', () => {
@@ -148,14 +146,15 @@ const CONFIG = {
     });
 
     const portrait = $('[data-parallax]');
-    if (portrait && hero) {
-      hero.addEventListener('pointermove', (e) => {
+    const host = portrait?.closest('section');
+    if (portrait && host) {
+      host.addEventListener('pointermove', (e) => {
         const nx = e.clientX / window.innerWidth - 0.5;
         const ny = e.clientY / window.innerHeight - 0.5;
-        portrait.style.setProperty('--px', `${(nx * -14).toFixed(1)}px`);
-        portrait.style.setProperty('--py', `${(ny * -10).toFixed(1)}px`);
+        portrait.style.setProperty('--px', `${(nx * -12).toFixed(1)}px`);
+        portrait.style.setProperty('--py', `${(ny * -8).toFixed(1)}px`);
       });
-      hero.addEventListener('pointerleave', () => {
+      host.addEventListener('pointerleave', () => {
         portrait.style.setProperty('--px', '0px');
         portrait.style.setProperty('--py', '0px');
       });
@@ -203,9 +202,9 @@ const CONFIG = {
 
     makeSprites() {
       const d = this.dark;
-      const rbcEdge = d ? 'rgba(238,149,128,0.55)' : 'rgba(224,72,70,0.42)';
-      const rbcMid = d ? 'rgba(238,149,128,0.28)' : 'rgba(238,149,128,0.30)';
-      const rbcCore = d ? 'rgba(238,149,128,0.10)' : 'rgba(252,236,230,0.35)';
+      const rbcEdge = d ? 'rgba(79,182,187,0.60)' : 'rgba(79,182,187,0.55)';
+      const rbcMid = d ? 'rgba(79,182,187,0.28)' : 'rgba(79,182,187,0.28)';
+      const rbcCore = d ? 'rgba(79,182,187,0.08)' : 'rgba(223,242,243,0.40)';
       const rbc = (blur) => this.makeSprite(128, (g, s) => {
         if (blur) g.filter = 'blur(5px)';
         const grd = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s * 0.42);
@@ -218,17 +217,17 @@ const CONFIG = {
       });
       const wbc = (blur) => this.makeSprite(128, (g, s) => {
         if (blur) g.filter = 'blur(5px)';
-        g.fillStyle = d ? 'rgba(191,222,219,0.16)' : 'rgba(43,139,142,0.12)';
-        g.strokeStyle = d ? 'rgba(191,222,219,0.35)' : 'rgba(43,139,142,0.28)';
+        g.fillStyle = d ? 'rgba(185,226,228,0.12)' : 'rgba(15,38,93,0.06)';
+        g.strokeStyle = d ? 'rgba(185,226,228,0.32)' : 'rgba(15,38,93,0.2)';
         g.lineWidth = 2;
         g.beginPath(); g.arc(s / 2, s / 2, s * 0.4, 0, Math.PI * 2); g.fill(); g.stroke();
-        g.fillStyle = d ? 'rgba(191,222,219,0.35)' : 'rgba(100,28,69,0.22)';
+        g.fillStyle = d ? 'rgba(185,226,228,0.3)' : 'rgba(15,38,93,0.18)';
         [[-0.12, -0.08, 0.14], [0.1, -0.1, 0.12], [0.02, 0.12, 0.13]].forEach(([x, y, r]) => {
           g.beginPath(); g.arc(s / 2 + x * s, s / 2 + y * s, r * s, 0, Math.PI * 2); g.fill();
         });
       });
       const plt = this.makeSprite(32, (g, s) => {
-        g.fillStyle = d ? 'rgba(233,220,198,0.55)' : 'rgba(176,141,87,0.45)';
+        g.fillStyle = d ? 'rgba(185,226,228,0.5)' : 'rgba(15,38,93,0.3)';
         g.beginPath(); g.ellipse(s / 2, s / 2, s * 0.36, s * 0.24, 0.4, 0, Math.PI * 2); g.fill();
       });
       return { rbc: rbc(false), rbcBlur: rbc(true), wbc: wbc(false), wbcBlur: wbc(true), plt };
@@ -359,198 +358,83 @@ const CONFIG = {
 
   $$('.cells-canvas').forEach((cv) => new CellField(cv, { dark: cv.classList.contains('cells-canvas--dark') }));
 
-  /* ---------- Services explorer (panel on desktop, accordion on mobile) ---------- */
-  const svc = $('[data-svc]');
-  if (svc) {
-    const items = $$('.svc-item', svc);
-    const desktop = window.matchMedia('(min-width: 961px)');
-    const setActive = (item, toggle = false) => {
-      const closing = toggle && !desktop.matches && item.classList.contains('is-active');
-      items.forEach((it) => {
-        const on = it === item && !closing;
-        it.classList.toggle('is-active', on);
-        $('.svc-item__btn', it).setAttribute('aria-expanded', String(on));
+  /* ---------- Treatments filter ---------- */
+  const filter = $('.treat-filter');
+  const groups = $('[data-treatments]');
+  if (filter && groups) {
+    const btns = $$('button', filter);
+    const thumb = $('.treat-filter__thumb', filter);
+    const moveThumb = (b) => {
+      thumb.style.setProperty('--tx', `${b.offsetLeft}px`);
+      thumb.style.setProperty('--tw', `${b.offsetWidth}px`);
+    };
+    const apply = (b) => {
+      const f = b.dataset.filter;
+      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      moveThumb(b);
+      if (f === 'all') delete groups.dataset.filter; else groups.dataset.filter = f;
+      if (reduceMotion) return;
+      $$('.treat-group', groups).forEach((g) => {
+        $$('.treat, .treat-group__head', g).forEach((el, i) => el.style.setProperty('--i', i));
+        g.classList.remove('is-entering');
+        void g.offsetWidth;
+        g.classList.add('is-entering');
       });
     };
-    let hoverTimer = null;
-    items.forEach((it) => {
-      const btn = $('.svc-item__btn', it);
-      btn.addEventListener('click', () => setActive(it, true));
-      btn.addEventListener('focus', () => { if (desktop.matches) setActive(it); });
-      btn.addEventListener('pointerenter', () => {
-        if (!desktop.matches || !finePointer) return;
-        clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(() => setActive(it), 120);
-      });
-      btn.addEventListener('pointerleave', () => clearTimeout(hoverTimer));
-    });
-    // Desktop always shows one panel
-    desktop.addEventListener('change', (e) => {
-      if (e.matches && !items.some((it) => it.classList.contains('is-active'))) setActive(items[0]);
-    });
+    btns.forEach((b) => b.addEventListener('click', () => apply(b)));
+    const current = () => btns.find((b) => b.getAttribute('aria-pressed') === 'true');
+    moveThumb(current());
+    new ResizeObserver(() => moveThumb(current())).observe(filter);
+    document.fonts?.ready.then(() => moveThumb(current()));
   }
 
-  /* ---------- Conditions tabs ---------- */
-  $$('[data-tabs]').forEach((wrap) => {
-    const list = $('[role="tablist"]', wrap);
-    const tabs = $$('[role="tab"]', list);
-    const indicator = $('.tabs__indicator', list);
-
-    const moveIndicator = (tab) => {
-      indicator.style.setProperty('--ix', `${tab.offsetLeft}px`);
-      indicator.style.setProperty('--iw', `${tab.offsetWidth}px`);
+  /* ---------- Count-up numbers ---------- */
+  const counters = $$('[data-count]');
+  if (counters.length && !reduceMotion && 'IntersectionObserver' in window) {
+    const run = (el) => {
+      const end = +el.dataset.count;
+      const t0 = performance.now();
+      const dur = 1600;
+      const step = (t) => {
+        const k = Math.min(1, (t - t0) / dur);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(step);
+      };
+      el.textContent = '0';
+      requestAnimationFrame(step);
     };
-
-    const select = (tab, focus = true) => {
-      tabs.forEach((t) => {
-        const on = t === tab;
-        t.setAttribute('aria-selected', String(on));
-        t.tabIndex = on ? 0 : -1;
-        const panel = document.getElementById(t.getAttribute('aria-controls'));
-        panel.hidden = !on;
-        if (on && !reduceMotion) {
-          $$('.cond', panel).forEach((c, i) => c.style.setProperty('--i', i));
-          panel.classList.remove('is-entering');
-          void panel.offsetWidth;
-          panel.classList.add('is-entering');
-        }
-      });
-      moveIndicator(tab);
-      if (focus) tab.focus();
-      const l = list.getBoundingClientRect(), r = tab.getBoundingClientRect();
-      if (r.left < l.left || r.right > l.right) list.scrollBy({ left: r.left - l.left - 24, behavior: reduceMotion ? 'auto' : 'smooth' });
-    };
-
-    tabs.forEach((tab, i) => {
-      tab.addEventListener('click', () => select(tab));
-      tab.addEventListener('keydown', (e) => {
-        let n = null;
-        if (e.key === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
-        if (e.key === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
-        if (e.key === 'Home') n = tabs[0];
-        if (e.key === 'End') n = tabs[tabs.length - 1];
-        if (n) { e.preventDefault(); select(n); }
-      });
-    });
-
-    const current = () => tabs.find((t) => t.getAttribute('aria-selected') === 'true');
-    moveIndicator(current());
-    new ResizeObserver(() => moveIndicator(current())).observe(list);
-    document.fonts?.ready.then(() => moveIndicator(current()));
-  });
-
-  /* ---------- BMT: autologous / allogeneic switch ---------- */
-  const bmtSwitch = $('.bmt-switch');
-  if (bmtSwitch) {
-    const radios = $$('[role="radio"]', bmtSwitch);
-    const setMode = (btn, focus) => {
-      const mode = btn.dataset.bmt;
-      bmtSwitch.dataset.mode = mode;
-      radios.forEach((r) => {
-        const on = r === btn;
-        r.setAttribute('aria-checked', String(on));
-        r.tabIndex = on ? 0 : -1;
-      });
-      $$('[data-bmt-text]', bmtSwitch).forEach((p) => { p.hidden = p.dataset.bmtText !== mode; });
-      if (focus) btn.focus();
-    };
-    radios.forEach((r, i) => {
-      r.addEventListener('click', () => setMode(r));
-      r.addEventListener('keydown', (e) => {
-        if (['ArrowRight', 'ArrowDown', 'ArrowLeft', 'ArrowUp'].includes(e.key)) {
-          e.preventDefault();
-          setMode(radios[(i + 1) % radios.length], true);
-        }
-      });
-    });
-    setMode(radios[0]);
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { run(e.target); cio.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    counters.forEach((el) => cio.observe(el));
   }
 
-  /* ---------- BMT: stage dial ---------- */
-  const STAGES = [
-    { title: 'Evaluation', text: 'Detailed tests, donor matching and counselling so the family understands every step.' },
-    { title: 'Conditioning', text: 'Chemotherapy, sometimes with radiation, prepares the marrow to receive new cells.' },
-    { title: 'Stem Cell Infusion', text: 'Healthy stem cells are given through a drip — much like a blood transfusion.' },
-    { title: 'Engraftment', text: 'New cells settle in the marrow and begin making blood, with close monitoring and protection from infection.' },
-    { title: 'Recovery & Follow-up', text: 'A gradual return to daily life, with long-term follow-up for immunity, growth and wellbeing.' },
-  ];
-  const dial = $('[data-dial]');
-  if (dial) {
-    const btns = $$('[data-step]', dial);
-    const center = $('.dial__center', dial);
-    const num = $('[data-dial-num]', dial);
-    const title = $('[data-dial-title]', dial);
-    const text = $('[data-dial-text]', dial);
-    let idx = 0, timer = null, paused = false, inView = false;
-
-    btns.forEach((b, i) => b.setAttribute('aria-label', `Stage ${i + 1}: ${STAGES[i].title}`));
-
+  /* ---------- Gallery lightbox ---------- */
+  const lb = $('#lightbox');
+  const shots = $$('[data-gallery] .shot__btn');
+  if (lb && shots.length && typeof lb.showModal === 'function') {
+    const img = $('img', lb);
+    const cap = $('figcaption', lb);
+    let idx = 0, opener = null;
     const show = (i) => {
-      idx = i;
-      btns.forEach((b, j) => {
-        b.setAttribute('aria-pressed', String(j === i));
-        b.classList.toggle('is-done', j < i);
-      });
-      dial.style.setProperty('--dash', 100 - (i + 1) * 20);
-      num.textContent = String(i + 1).padStart(2, '0');
-      title.textContent = STAGES[i].title;
-      text.textContent = STAGES[i].text;
-      if (!reduceMotion) {
-        center.classList.remove('is-swapping');
-        void center.offsetWidth;
-        center.classList.add('is-swapping');
-      }
+      idx = (i + shots.length) % shots.length;
+      const b = shots[idx];
+      const thumb = $('img', b);
+      img.src = b.dataset.full;
+      img.alt = thumb.alt;
+      cap.textContent = $('.shot__cap', b).textContent;
+      if (!reduceMotion) img.animate([{ opacity: 0, filter: 'blur(8px)' }, { opacity: 1, filter: 'blur(0)' }], { duration: 450, easing: 'ease-out' });
     };
-    const tick = () => { if (!paused && inView) show((idx + 1) % STAGES.length); };
-    const run = () => { clearInterval(timer); if (!reduceMotion) timer = setInterval(tick, 4200); };
-
-    btns.forEach((b, i) => b.addEventListener('click', () => { show(i); run(); }));
-    dial.addEventListener('pointerenter', () => { paused = true; });
-    dial.addEventListener('pointerleave', () => { paused = false; });
-    dial.addEventListener('focusin', () => { paused = true; });
-    dial.addEventListener('focusout', () => { paused = false; });
-    new IntersectionObserver(([e]) => { inView = e.isIntersecting; }, { threshold: 0.4 }).observe(dial);
-    show(0);
-    run();
-  }
-
-  /* ---------- Care journey progress ---------- */
-  const journey = $('[data-journey]');
-  const jsteps = journey ? $$('.jstep', journey) : [];
-  function updateJourney() {
-    if (!journey) return;
-    const vh = window.innerHeight;
-    const r = journey.getBoundingClientRect();
-    const vertical = window.matchMedia('(max-width: 960px)').matches;
-    let p;
-    if (vertical) {
-      p = clamp((vh * 0.7 - r.top) / r.height, 0, 1);
-      jsteps.forEach((s) => {
-        const node = $('.jstep__node', s).getBoundingClientRect();
-        s.classList.toggle('is-active', node.top + node.height / 2 < vh * 0.7);
-      });
-    } else {
-      p = clamp((vh * 0.88 - r.top) / (vh * 0.5), 0, 1);
-      jsteps.forEach((s, i) => s.classList.toggle('is-active', p >= i / (jsteps.length - 1) - 0.001));
-    }
-    journey.style.setProperty('--p', p.toFixed(4));
-  }
-  if (reduceMotion && journey) {
-    journey.style.setProperty('--p', 1);
-    jsteps.forEach((s) => s.classList.add('is-active'));
-  }
-
-  /* ---------- Career timeline progress ---------- */
-  const career = $('[data-career]');
-  if (career && !reduceMotion) {
-    const list = $('.career__list', career);
-    const updateCareer = () => {
-      const r = list.getBoundingClientRect();
-      const p = clamp((window.innerHeight * 0.75 - r.top) / r.height, 0, 1);
-      list.style.setProperty('--cp', p.toFixed(4));
-    };
-    window.addEventListener('scroll', () => requestAnimationFrame(updateCareer), { passive: true });
-    updateCareer();
+    shots.forEach((b, i) => b.addEventListener('click', () => { opener = b; show(i); lb.showModal(); }));
+    $('.lightbox__close', lb).addEventListener('click', () => lb.close());
+    $('.lightbox__nav--prev', lb).addEventListener('click', () => show(idx - 1));
+    $('.lightbox__nav--next', lb).addEventListener('click', () => show(idx + 1));
+    lb.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+    lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+    lb.addEventListener('close', () => opener?.focus());
   }
 
   /* ---------- Appointment form → WhatsApp ---------- */

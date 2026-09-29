@@ -8,6 +8,7 @@ index.html              Homepage (semantic HTML, SEO meta, Physician JSON-LD)
 assets/css/styles.css   Design tokens, layout, responsive rules, motion
 assets/js/main.js       Interactions (cell canvas, reveals, tabs, BMT dial, journey, form)
 assets/images/          Portrait (2 sizes), logo, logo mark (favicon)
+assets/images/gallery/  Gallery photos (full size + 760w)
 assets/fonts/           Self-hosted Poppins & Inter (SIL Open Font License)
 ```
 
@@ -23,4 +24,5 @@ assets/fonts/           Self-hosted Poppins & Inter (SIL Open Font License)
 - Motion respects `prefers-reduced-motion`; canvases pause when off-screen.
 - The appointment form has no backend: it opens WhatsApp with a pre-filled message.
 - The hero animation uses fewer cells and runs at 30fps on phones, pauses in background tabs, and halves itself automatically on slow devices.
-- FAQ answers are general information; review them with Dr. Bhat before launch.
+- Testimonials are **placeholders** (marked "Sample"). Replace them with genuine reviews shared with the patient's consent — see the comment above the section in `index.html`.
+- Gallery photos show patients: make sure consent for public use is on file before launch.
