@@ -19,9 +19,8 @@
   <link rel="icon" type="image/png" href="assets/images/logo-mark.png">
   <link rel="apple-touch-icon" href="assets/images/logo-mark.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/images/dr-neema-bhat-720.webp" imagesrcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w" imagesizes="(max-width: 960px) 70vw, 420px">
   <link rel="stylesheet" href="assets/css/styles.css">
 
@@ -33,7 +32,7 @@
     "description": "Hematologist and Pediatric Oncologist in Bangalore providing specialist care for blood disorders, blood cancers, childhood cancers and bone marrow transplantation.",
     "url": "https://drneemabhat.com/",
     "image": "https://drneemabhat.com/assets/images/dr-neema-bhat.webp",
-    "alumniOf": [{"@type": "CollegeOrUniversity", "name": "Sri Devaraj Urs Medical College"}, {"@type": "Hospital", "name": "Cooper University Hospital"}, {"@type": "Hospital", "name": "Penn State Health"}],
+    "alumniOf": {"@type": "Hospital", "name": "Penn State Health"},
     "logo": "https://drneemabhat.com/assets/images/logo.png",
     "medicalSpecialty": ["Hematologic", "Oncologic", "Pediatric"],
     "availableService": [
@@ -53,6 +52,9 @@
     "knowsLanguage": ["English", "Hindi", "Kannada", "Telugu", "Tamil"],
     "hospitalAffiliation": {"@type": "Hospital", "name": "Bhagawan Mahaveer Jain Hospital", "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressCountry": "IN"}}
   }
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "When should my child see a pediatric hematologist?", "acceptedAnswer": {"@type": "Answer", "text": "If your child has persistent paleness or tiredness, bruises or bleeds easily, has frequent nosebleeds or unusual bleeding after a cut or tooth extraction, or a routine blood test shows counts that are too high or too low. A referral from your paediatrician is helpful, but not required."}}, {"@type": "Question", "name": "Is a bone marrow transplant only for cancer?", "acceptedAnswer": {"@type": "Answer", "text": "No. Bone marrow (stem cell) transplantation is used for blood cancers such as leukaemia and lymphoma, but also for non-cancerous conditions — including thalassemia major, sickle cell disease, aplastic anaemia and certain inherited immune disorders."}}, {"@type": "Question", "name": "Can thalassemia be cured?", "acceptedAnswer": {"@type": "Answer", "text": "For many children with thalassemia major, a stem cell transplant from a matched donor — often a brother or sister — offers the possibility of a cure. Results are generally better when it is done early. Children who do not undergo transplant are managed with regular transfusions and iron chelation."}}, {"@type": "Question", "name": "Are childhood cancers treatable?", "acceptedAnswer": {"@type": "Answer", "text": "Many childhood cancers respond very well to treatment. Acute lymphoblastic leukaemia, the most common childhood cancer, can be cured in the large majority of children treated with modern protocols. Outcomes depend on the type and stage of cancer, which is why accurate diagnosis matters."}}, {"@type": "Question", "name": "Can I get a second opinion if treatment has already started?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. A second opinion can be useful at any stage — at diagnosis, before a major decision such as transplant, or during treatment. Please bring all reports, pathology slides or blocks if available, scan reports and a list of current medicines."}}, {"@type": "Question", "name": "How do I book a consultation?", "acceptedAnswer": {"@type": "Answer", "text": "Call or WhatsApp +91 78997 56677, or use the appointment form on this page. Consultation timings are confirmed when you get in touch."}}]}
   </script>
 </head>
 <body>
@@ -191,15 +193,22 @@
     <section class="section about" id="about" aria-labelledby="about-title">
       <div class="container about__grid">
         <div class="about__visual" data-reveal="focus">
-          <figure class="about__card">
-            <div class="about__mark" aria-hidden="true">
-              <img src="assets/images/logo-mark.png" alt="" width="229" height="275" loading="lazy">
+          <aside class="about__card" aria-label="Dr. Neema Bhat at a glance">
+            <div class="about__card-head">
+              <img class="about__avatar" src="assets/images/dr-neema-bhat-720.webp" alt="" width="720" height="1136" loading="lazy" decoding="async">
+              <div>
+                <p class="about__name">Dr. Neema Bhat</p>
+                <p class="about__role">Haemato-Oncologist &amp; BMT Physician</p>
+              </div>
             </div>
-            <blockquote>
-              “Every child and every family deserves a doctor who explains clearly, listens patiently and stays with them through every step.”
-            </blockquote>
-            <figcaption>— Dr. Neema Bhat</figcaption>
-          </figure>
+            <dl class="facts">
+              <div class="facts__row"><dt>Current role</dt><dd>Program Director &amp; HOD, Bone Marrow Transplant Unit</dd></div>
+              <div class="facts__row"><dt>Hospital</dt><dd>Bhagawan Mahaveer Jain Hospital, with Sankalp India Foundation</dd></div>
+              <div class="facts__row"><dt>Training</dt><dd>MD (USA) · Fellowship (FAAP), Penn State Health</dd></div>
+              <div class="facts__row"><dt>Experience</dt><dd>10+ years · children and adults</dd></div>
+              <div class="facts__row"><dt>Languages</dt><dd>English, Hindi, Kannada, Telugu, Tamil</dd></div>
+            </dl>
+          </aside>
         </div>
         <div class="about__copy">
           <p class="kicker" data-reveal="blur">About Dr. Neema Bhat</p>
@@ -231,26 +240,17 @@
       <div class="container">
         <header class="section-head">
           <p class="kicker" data-reveal="blur">Credentials</p>
-          <h2 id="cred-title" class="h2" data-split>Trained in India and the United States</h2>
-          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">International training, focused sub-specialty experience and an ongoing commitment to research.</p>
+          <h2 id="cred-title" class="h2" data-split>Trained in the United States, practising in Bangalore</h2>
+          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Sub-specialty training in pediatric hematology, oncology and bone marrow transplantation, followed by a decade of practice.</p>
         </header>
 
         <ol class="cred-timeline">
           <li class="cred card spotlight" data-reveal="rise">
-            <span class="cred__tag">Medical degree</span>
-            <h3>MBBS</h3>
-            <p>Sri Devaraj Urs Medical College, Kolar</p>
-            <p class="cred__note">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/></svg>
-              Gold Medal in Physiology
-            </p>
-          </li>
-          <li class="cred card spotlight" data-reveal="rise" style="--d:.08s">
             <span class="cred__tag">Postgraduate · USA</span>
             <h3>MD</h3>
-            <p>Cooper University Hospital, Camden, New Jersey</p>
+            <p>Completed in the United States</p>
           </li>
-          <li class="cred card spotlight" data-reveal="rise" style="--d:.16s">
+          <li class="cred card spotlight" data-reveal="rise" style="--d:0.08s">
             <span class="cred__tag">Fellowship · USA</span>
             <h3>Pediatric Hematology, Oncology &amp; BMT</h3>
             <p>Penn State Health, Hershey, Pennsylvania</p>
@@ -259,10 +259,15 @@
               FAAP
             </p>
           </li>
-          <li class="cred card spotlight" data-reveal="rise" style="--d:.24s">
+          <li class="cred card spotlight" data-reveal="rise" style="--d:0.16s">
             <span class="cred__tag">Current role</span>
             <h3>Program Director &amp; HOD, BMT Unit</h3>
             <p>Bhagawan Mahaveer Jain Hospital, with Sankalp India Foundation</p>
+          </li>
+          <li class="cred card spotlight" data-reveal="rise" style="--d:0.24s">
+            <span class="cred__tag">Experience</span>
+            <h3>10+ Years</h3>
+            <p>Treating blood disorders and blood cancers in children and adults</p>
           </li>
         </ol>
 
@@ -303,9 +308,6 @@
           </ol>
         </div>
 
-        <div class="cred-extra" data-reveal="blur">
-          <p><span class="cred-extra__label">Research</span> 15+ publications in national and international journals; first place for oral presentation and best abstract at an annual resident &amp; fellow research day.</p>
-        </div>
       </div>
     </section>
 
@@ -377,39 +379,126 @@
         <header class="section-head">
           <p class="kicker" data-reveal="blur">Specialist Services</p>
           <h2 id="svc-title" class="h2" data-split>Focused expertise, coordinated care</h2>
+          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Select a service to see what it involves and who it’s usually for.</p>
         </header>
-        <ul class="svc-grid">
-          <li class="svc card spotlight tilt" data-reveal="rise">
-            <span class="svc__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4c4 5.6 8 9.9 8 14.7A8 8 0 0 1 8 18.7C8 13.9 12 9.6 16 4z"/><path d="M12.5 19.5a3.5 3.5 0 0 0 3.5 3.5"/></svg></span>
-            <h3>Hematology Consultation</h3>
-            <p>Expert evaluation of abnormal blood counts, anaemia, bleeding and clotting problems in children and adults.</p>
-          </li>
-          <li class="svc card spotlight tilt" data-reveal="rise" style="--d:.06s">
-            <span class="svc__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="10" r="4.5"/><path d="M7 27c0-5 4-9 9-9s9 4 9 9"/><path d="M23 6.5l2-2M25 9.5h3"/></svg></span>
-            <h3>Pediatric Oncology</h3>
-            <p>Complete cancer care for children — chemotherapy, supportive care and emotional support for the whole family.</p>
-          </li>
-          <li class="svc card spotlight tilt" data-reveal="rise" style="--d:.12s">
-            <span class="svc__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><circle cx="16" cy="16" r="10.5"/><path d="M16 2v3M16 27v3M2 16h3M27 16h3"/></svg></span>
-            <h3>Bone Marrow Transplantation</h3>
-            <p>Autologous and allogeneic stem cell transplants for blood cancers, marrow failure and inherited disorders.</p>
-          </li>
-          <li class="svc card spotlight tilt" data-reveal="rise" style="--d:.18s">
-            <span class="svc__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="10" y="3" width="12" height="18" rx="3"/><path d="M13 9h6M13 13h6"/><path d="M16 21v4a3 3 0 0 0 3 3h2"/></svg></span>
-            <h3>Thalassemia &amp; Transfusion Care</h3>
-            <p>Structured transfusion programmes, iron chelation and long-term monitoring.</p>
-          </li>
-          <li class="svc card spotlight tilt" data-reveal="rise" style="--d:.24s">
-            <span class="svc__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 26l8-8"/><path d="M12 12l8 8 6-6-8-8z"/><path d="M20 4l8 8"/></svg></span>
-            <h3>Bone Marrow Evaluation</h3>
-            <p>Aspiration and biopsy performed with care and comfort, especially for young children.</p>
-          </li>
-          <li class="svc card spotlight tilt" data-reveal="rise" style="--d:.3s">
-            <span class="svc__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 28s-10-6-10-14a6 6 0 0 1 10-4.4A6 6 0 0 1 26 14c0 8-10 14-10 14z"/><path d="M11 15h3l2-3 2 5 1.5-2H22"/></svg></span>
-            <h3>Survivorship &amp; Follow-up</h3>
-            <p>Long-term follow-up after cancer treatment — growth, development, fertility and wellbeing.</p>
-          </li>
-        </ul>
+        <div class="svc-explorer" data-svc data-reveal="blur">
+          <ol class="svc-list">
+            <li class="svc-item is-active">
+              <h3 class="svc-item__heading">
+                <button class="svc-item__btn" type="button" id="svc-b1" aria-controls="svc-p1" aria-expanded="true">
+                  <span class="svc-item__num" aria-hidden="true">01</span>
+                  <span class="svc-item__title">Hematology Consultation</span>
+                  <svg class="svc-item__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </h3>
+              <div class="svc-item__panel" id="svc-p1" role="region" aria-labelledby="svc-b1">
+                <div class="svc-panel">
+                  <span class="svc-panel__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4c4 5.6 8 9.9 8 14.7A8 8 0 0 1 8 18.7C8 13.9 12 9.6 16 4z"/><path d="M12.5 19.5a3.5 3.5 0 0 0 3.5 3.5"/></svg></span>
+                  <p class="svc-panel__title" aria-hidden="true">Hematology Consultation</p>
+                  <p class="svc-panel__text">Expert evaluation of abnormal blood counts, anaemia, bleeding and clotting problems in children and adults — starting with a careful history and the right tests, not every test.</p>
+                  <p class="svc-panel__label">Often for</p>
+                  <ul class="svc-panel__tags"><li>Anaemia</li><li>Low platelets</li><li>Easy bruising</li><li>Abnormal blood reports</li></ul>
+                  <a class="text-link" href="#appointment">Book a consultation <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="svc-item">
+              <h3 class="svc-item__heading">
+                <button class="svc-item__btn" type="button" id="svc-b2" aria-controls="svc-p2" aria-expanded="false">
+                  <span class="svc-item__num" aria-hidden="true">02</span>
+                  <span class="svc-item__title">Pediatric Oncology</span>
+                  <svg class="svc-item__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </h3>
+              <div class="svc-item__panel" id="svc-p2" role="region" aria-labelledby="svc-b2">
+                <div class="svc-panel">
+                  <span class="svc-panel__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="10" r="4.5"/><path d="M7 27c0-5 4-9 9-9s9 4 9 9"/><path d="M23 6.5l2-2M25 9.5h3"/></svg></span>
+                  <p class="svc-panel__title" aria-hidden="true">Pediatric Oncology</p>
+                  <p class="svc-panel__text">Complete cancer care for children and adolescents — diagnosis, staging, chemotherapy and supportive care, with the family involved at every step.</p>
+                  <p class="svc-panel__label">Often for</p>
+                  <ul class="svc-panel__tags"><li>Leukaemia</li><li>Lymphoma</li><li>Neuroblastoma</li><li>Wilms tumour</li></ul>
+                  <a class="text-link" href="#appointment">Book a consultation <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="svc-item">
+              <h3 class="svc-item__heading">
+                <button class="svc-item__btn" type="button" id="svc-b3" aria-controls="svc-p3" aria-expanded="false">
+                  <span class="svc-item__num" aria-hidden="true">03</span>
+                  <span class="svc-item__title">Bone Marrow Transplantation</span>
+                  <svg class="svc-item__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </h3>
+              <div class="svc-item__panel" id="svc-p3" role="region" aria-labelledby="svc-b3">
+                <div class="svc-panel">
+                  <span class="svc-panel__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="4"/><circle cx="16" cy="16" r="10.5"/><path d="M16 2v3M16 27v3M2 16h3M27 16h3"/></svg></span>
+                  <p class="svc-panel__title" aria-hidden="true">Bone Marrow Transplantation</p>
+                  <p class="svc-panel__text">Autologous and allogeneic stem cell transplants for blood cancers, marrow failure and inherited blood disorders — from donor matching to long-term follow-up.</p>
+                  <p class="svc-panel__label">Often for</p>
+                  <ul class="svc-panel__tags"><li>Thalassemia</li><li>Aplastic anaemia</li><li>Leukaemia</li><li>Immunodeficiency</li></ul>
+                  <a class="text-link" href="#appointment">Book a consultation <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="svc-item">
+              <h3 class="svc-item__heading">
+                <button class="svc-item__btn" type="button" id="svc-b4" aria-controls="svc-p4" aria-expanded="false">
+                  <span class="svc-item__num" aria-hidden="true">04</span>
+                  <span class="svc-item__title">Thalassemia &amp; Transfusion Care</span>
+                  <svg class="svc-item__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </h3>
+              <div class="svc-item__panel" id="svc-p4" role="region" aria-labelledby="svc-b4">
+                <div class="svc-panel">
+                  <span class="svc-panel__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><rect x="10" y="3" width="12" height="18" rx="3"/><path d="M13 9h6M13 13h6"/><path d="M16 21v4a3 3 0 0 0 3 3h2"/></svg></span>
+                  <p class="svc-panel__title" aria-hidden="true">Thalassemia &amp; Transfusion Care</p>
+                  <p class="svc-panel__text">Structured transfusion programmes, iron chelation and regular monitoring — and an honest discussion of whether a curative transplant is an option.</p>
+                  <p class="svc-panel__label">Often for</p>
+                  <ul class="svc-panel__tags"><li>Thalassemia major</li><li>Sickle cell disease</li><li>Iron overload</li></ul>
+                  <a class="text-link" href="#appointment">Book a consultation <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="svc-item">
+              <h3 class="svc-item__heading">
+                <button class="svc-item__btn" type="button" id="svc-b5" aria-controls="svc-p5" aria-expanded="false">
+                  <span class="svc-item__num" aria-hidden="true">05</span>
+                  <span class="svc-item__title">Bone Marrow Evaluation</span>
+                  <svg class="svc-item__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </h3>
+              <div class="svc-item__panel" id="svc-p5" role="region" aria-labelledby="svc-b5">
+                <div class="svc-panel">
+                  <span class="svc-panel__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 26l8-8"/><path d="M12 12l8 8 6-6-8-8z"/><path d="M20 4l8 8"/></svg></span>
+                  <p class="svc-panel__title" aria-hidden="true">Bone Marrow Evaluation</p>
+                  <p class="svc-panel__text">Bone marrow aspiration and biopsy, planned with comfort in mind — especially for young children — to reach an accurate diagnosis.</p>
+                  <p class="svc-panel__label">Often for</p>
+                  <ul class="svc-panel__tags"><li>Unexplained blood counts</li><li>Suspected leukaemia</li><li>Marrow failure</li></ul>
+                  <a class="text-link" href="#appointment">Book a consultation <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+            <li class="svc-item">
+              <h3 class="svc-item__heading">
+                <button class="svc-item__btn" type="button" id="svc-b6" aria-controls="svc-p6" aria-expanded="false">
+                  <span class="svc-item__num" aria-hidden="true">06</span>
+                  <span class="svc-item__title">Survivorship &amp; Follow-up</span>
+                  <svg class="svc-item__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+              </h3>
+              <div class="svc-item__panel" id="svc-p6" role="region" aria-labelledby="svc-b6">
+                <div class="svc-panel">
+                  <span class="svc-panel__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 28s-10-6-10-14a6 6 0 0 1 10-4.4A6 6 0 0 1 26 14c0 8-10 14-10 14z"/><path d="M11 15h3l2-3 2 5 1.5-2H22"/></svg></span>
+                  <p class="svc-panel__title" aria-hidden="true">Survivorship &amp; Follow-up</p>
+                  <p class="svc-panel__text">Long-term follow-up after cancer treatment or transplant — watching growth, development, fertility and overall wellbeing.</p>
+                  <p class="svc-panel__label">Often for</p>
+                  <ul class="svc-panel__tags"><li>After chemotherapy</li><li>After transplant</li><li>Late effects</li></ul>
+                  <a class="text-link" href="#appointment">Book a consultation <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
@@ -568,7 +657,44 @@
       </div>
     </section>
 
-    <!-- 12. Final appointment CTA -->
+    <!-- 12. FAQs -->
+    <section class="section faqs" id="faqs" aria-labelledby="faq-title">
+      <div class="container faqs__grid">
+        <header class="faqs__head">
+          <p class="kicker" data-reveal="blur">Questions Families Ask</p>
+          <h2 id="faq-title" class="h2" data-split>Answers to common questions</h2>
+          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">General information to help you prepare. Every patient is different — your consultation is the place for advice specific to you or your child.</p>
+        </header>
+        <div class="faqs__list">
+          <details class="faq" data-reveal="blur">
+            <summary><h3>When should my child see a pediatric hematologist?</h3><span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>If your child has persistent paleness or tiredness, bruises or bleeds easily, has frequent nosebleeds or unusual bleeding after a cut or tooth extraction, or a routine blood test shows counts that are too high or too low. A referral from your paediatrician is helpful, but not required.</p></div>
+          </details>
+          <details class="faq" data-reveal="blur" style="--d:0.04s">
+            <summary><h3>Is a bone marrow transplant only for cancer?</h3><span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>No. Bone marrow (stem cell) transplantation is used for blood cancers such as leukaemia and lymphoma, but also for non-cancerous conditions — including thalassemia major, sickle cell disease, aplastic anaemia and certain inherited immune disorders.</p></div>
+          </details>
+          <details class="faq" data-reveal="blur" style="--d:0.08s">
+            <summary><h3>Can thalassemia be cured?</h3><span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>For many children with thalassemia major, a stem cell transplant from a matched donor — often a brother or sister — offers the possibility of a cure. Results are generally better when it is done early. Children who do not undergo transplant are managed with regular transfusions and iron chelation.</p></div>
+          </details>
+          <details class="faq" data-reveal="blur" style="--d:0.12s">
+            <summary><h3>Are childhood cancers treatable?</h3><span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Many childhood cancers respond very well to treatment. Acute lymphoblastic leukaemia, the most common childhood cancer, can be cured in the large majority of children treated with modern protocols. Outcomes depend on the type and stage of cancer, which is why accurate diagnosis matters.</p></div>
+          </details>
+          <details class="faq" data-reveal="blur" style="--d:0.16s">
+            <summary><h3>Can I get a second opinion if treatment has already started?</h3><span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Yes. A second opinion can be useful at any stage — at diagnosis, before a major decision such as transplant, or during treatment. Please bring all reports, pathology slides or blocks if available, scan reports and a list of current medicines.</p></div>
+          </details>
+          <details class="faq" data-reveal="blur" style="--d:0.20s">
+            <summary><h3>How do I book a consultation?</h3><span class="faq__icon" aria-hidden="true"></span></summary>
+            <div class="faq__body"><p>Call or WhatsApp +91 78997 56677, or use the appointment form on this page. Consultation timings are confirmed when you get in touch.</p></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Final appointment CTA -->
     <section class="appointment" id="appointment" aria-labelledby="appt-title">
       <div class="container appointment__grid">
         <div class="appointment__copy">
@@ -586,9 +712,20 @@
             </li>
             <li>
               <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
-              <div><small>Practice</small><span data-location>Bhagawan Mahaveer Jain Hospital, Bangalore</span></div>
+              <div><small>Practice</small><span data-location>Bhagawan Mahaveer Jain Hospital, Bangalore</span><em class="contact-list__sub">Millers Road, Vasanth Nagar, Bengaluru</em></div>
+            </li>
+            <li>
+              <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <div><small>Consultations</small><span>By appointment</span><em class="contact-list__sub">Timings are confirmed when you call or WhatsApp</em></div>
             </li>
           </ul>
+          <div class="map" data-reveal="focus" style="--d:.2s">
+            <iframe title="Map showing Bhagawan Mahaveer Jain Hospital, Bengaluru" src="https://maps.google.com/maps?q=Bhagwan%20Mahaveer%20Jain%20Hospital%2C%20Millers%20Road%2C%20Bengaluru&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <a class="map__link" href="https://www.google.com/maps/search/?api=1&amp;query=Bhagwan+Mahaveer+Jain+Hospital+Millers+Road+Bengaluru" target="_blank" rel="noopener">
+              Get directions
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
         </div>
 
         <form class="appt-form card" id="appt-form" data-reveal="focus" style="--d:.1s" novalidate>
@@ -630,7 +767,7 @@
     </section>
   </main>
 
-  <!-- 13. Footer -->
+  <!-- 14. Footer -->
   <footer class="footer">
     <div class="container footer__grid">
       <div class="footer__brand">
@@ -644,6 +781,7 @@
           <li><a href="#credentials">Credentials</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#journey">Care Journey</a></li>
+          <li><a href="#faqs">FAQs</a></li>
         </ul>
       </nav>
       <nav class="footer__col" aria-label="Footer — conditions">

@@ -184,9 +184,14 @@ const CONFIG = {
       });
       host.addEventListener('pointerleave', () => { this.mouse.x = this.mouse.y = -9999; this.mouse.tx = this.mouse.ty = 0; });
       if (reduceMotion) { this.draw(0); return; }
+      this.inView = false;
       new IntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) this.start(); else this.stop();
+        this.inView = entry.isIntersecting;
+        if (this.inView) this.start(); else this.stop();
       }).observe(canvas);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) this.stop(); else if (this.inView) this.start();
+      });
     }
 
     makeSprite(size, paint) {
@@ -230,14 +235,22 @@ const CONFIG = {
     }
 
     resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const { clientWidth: w, clientHeight: h } = this.canvas;
       if (!w || !h) return;
+      // Phones and tablets: fewer cells, lower pixel density, 30fps
+      this.lite = w < 768 || !finePointer;
+      const dpr = Math.min(window.devicePixelRatio || 1, this.lite ? 1.5 : 2);
+      const widthChanged = w !== this.w;
       this.w = w; this.h = h;
       this.canvas.width = w * dpr; this.canvas.height = h * dpr;
       this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = clamp(Math.round((w * h) / (this.dark ? 42000 : 34000)), 12, 42);
-      this.cells = Array.from({ length: count }, () => this.spawn());
+      // mobile browser bars change the height while scrolling — keep existing cells then
+      if (widthChanged || !this.cells.length) {
+        const max = this.lite ? 18 : 42;
+        let count = clamp(Math.round((w * h) / (this.dark ? 42000 : 34000)), 10, max);
+        if (this.degraded) count = Math.ceil(count / 2);
+        this.cells = Array.from({ length: count }, () => this.spawn());
+      }
       if (reduceMotion) this.draw(0);
     }
 
@@ -261,16 +274,29 @@ const CONFIG = {
       };
     }
 
-    start() { if (this.running) return; this.running = true; this.last = performance.now(); requestAnimationFrame((t) => this.loop(t)); }
+    start() {
+      if (this.running || document.hidden) return;
+      this.running = true;
+      this.last = performance.now();
+      this.frames = 0; this.slow = 0;
+      requestAnimationFrame((t) => this.loop(t));
+    }
     stop() { this.running = false; }
 
     loop(t) {
       if (!this.running) return;
-      const dt = Math.min(48, t - this.last) / 16.67;
+      requestAnimationFrame((n) => this.loop(n));
+      const elapsed = t - this.last;
+      if (this.lite && elapsed < 30) return; // ~30fps on phones
       this.last = t;
+      // If the device struggles, halve the number of cells once
+      if (!this.degraded && ++this.frames > 20) {
+        if (elapsed > (this.lite ? 50 : 34)) this.slow++;
+        if (this.slow > 20) { this.degraded = true; this.cells.length = Math.ceil(this.cells.length / 2); }
+      }
+      const dt = Math.min(48, elapsed) / 16.67;
       this.update(dt);
       this.draw(t);
-      requestAnimationFrame((n) => this.loop(n));
     }
 
     update(dt) {
@@ -317,10 +343,10 @@ const CONFIG = {
         if (c.type === 'rbc') {
           // tumbling disc: squash along one axis for a 3D feel
           ctx.scale(1, 0.38 + 0.62 * Math.abs(Math.cos(c.tumble)));
-          const img = c.z < 0.55 ? this.sprites.rbcBlur : this.sprites.rbc;
+          const img = c.z < 0.55 && !this.lite ? this.sprites.rbcBlur : this.sprites.rbc;
           ctx.drawImage(img, -c.size, -c.size, c.size * 2, c.size * 2);
         } else if (c.type === 'wbc') {
-          const img = c.z < 0.55 ? this.sprites.wbcBlur : this.sprites.wbc;
+          const img = c.z < 0.55 && !this.lite ? this.sprites.wbcBlur : this.sprites.wbc;
           ctx.drawImage(img, -c.size, -c.size, c.size * 2, c.size * 2);
         } else {
           ctx.drawImage(this.sprites.plt, -c.size, -c.size, c.size * 2, c.size * 2);
@@ -332,6 +358,37 @@ const CONFIG = {
   }
 
   $$('.cells-canvas').forEach((cv) => new CellField(cv, { dark: cv.classList.contains('cells-canvas--dark') }));
+
+  /* ---------- Services explorer (panel on desktop, accordion on mobile) ---------- */
+  const svc = $('[data-svc]');
+  if (svc) {
+    const items = $$('.svc-item', svc);
+    const desktop = window.matchMedia('(min-width: 961px)');
+    const setActive = (item, toggle = false) => {
+      const closing = toggle && !desktop.matches && item.classList.contains('is-active');
+      items.forEach((it) => {
+        const on = it === item && !closing;
+        it.classList.toggle('is-active', on);
+        $('.svc-item__btn', it).setAttribute('aria-expanded', String(on));
+      });
+    };
+    let hoverTimer = null;
+    items.forEach((it) => {
+      const btn = $('.svc-item__btn', it);
+      btn.addEventListener('click', () => setActive(it, true));
+      btn.addEventListener('focus', () => { if (desktop.matches) setActive(it); });
+      btn.addEventListener('pointerenter', () => {
+        if (!desktop.matches || !finePointer) return;
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(() => setActive(it), 120);
+      });
+      btn.addEventListener('pointerleave', () => clearTimeout(hoverTimer));
+    });
+    // Desktop always shows one panel
+    desktop.addEventListener('change', (e) => {
+      if (e.matches && !items.some((it) => it.classList.contains('is-active'))) setActive(items[0]);
+    });
+  }
 
   /* ---------- Conditions tabs ---------- */
   $$('[data-tabs]').forEach((wrap) => {
