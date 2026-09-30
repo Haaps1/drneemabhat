@@ -61,8 +61,16 @@ const CONFIG = {
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
-  const navLinks = $$('.nav-links a, .tabbar a[href^="#"]');
-  const setActive = (id) => navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
+  const navLinks = $$('.nav-links a, .tabbar a[href^="#"], .tabbar a[data-home]');
+  const setActive = (id) => navLinks.forEach((a) => a.classList.toggle('active', id === 'top' ? a.hasAttribute('data-home') : a.getAttribute('href') === `#${id}`));
+
+  // Logo and "Home" links: back to the top of the home page
+  $$('[data-home]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    setActive('top');
+  }));
   if ('IntersectionObserver' in window) {
     const spy = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id || 'top'); });
@@ -133,36 +141,97 @@ const CONFIG = {
 
     makeSprites() {
       const d = this.dark;
-      // red blood cells: deep red rim, paler centre (biconcave disc)
-      const rbcEdge = d ? 'rgba(232,64,70,0.75)' : 'rgba(200,24,36,0.62)';
-      const rbcMid = d ? 'rgba(224,40,46,0.40)' : 'rgba(224,40,46,0.36)';
-      const rbcCore = d ? 'rgba(240,120,120,0.14)' : 'rgba(250,190,190,0.30)';
-      const rbc = (blur) => this.makeSprite(128, (g, s) => {
-        if (blur) g.filter = 'blur(5px)';
-        const grd = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s * 0.42);
-        grd.addColorStop(0, rbcCore);
-        grd.addColorStop(0.45, rbcMid);
-        grd.addColorStop(0.82, rbcEdge);
-        grd.addColorStop(1, 'rgba(0,0,0,0)');
-        g.fillStyle = grd;
-        g.beginPath(); g.arc(s / 2, s / 2, s * 0.42, 0, Math.PI * 2); g.fill();
+      const S = 192; // sprite resolution
+      const alpha = d ? 0.9 : 1;
+
+      // Red blood cell, face-on: biconcave disc lit from the top-left
+      const rbcFace = (blur) => this.makeSprite(S, (g, s) => {
+        const c = s / 2, R = s * 0.44;
+        if (blur) g.filter = 'blur(6px)';
+        g.globalAlpha = alpha;
+        // body: dark rim → bright torus → darker dimple
+        let gr = g.createRadialGradient(c, c, 0, c, c, R);
+        gr.addColorStop(0, '#b3121d');
+        gr.addColorStop(0.28, '#c41a26');
+        gr.addColorStop(0.5, '#e8454b');
+        gr.addColorStop(0.72, '#f26a6c');
+        gr.addColorStop(0.9, '#c8202a');
+        gr.addColorStop(1, '#8e0c16');
+        g.fillStyle = gr;
+        g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.fill();
+        g.filter = 'none';
+        g.save(); g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.clip();
+        // directional light (top-left bright, bottom-right shade)
+        gr = g.createLinearGradient(c - R, c - R, c + R, c + R);
+        gr.addColorStop(0, 'rgba(255,235,235,.45)');
+        gr.addColorStop(0.5, 'rgba(255,255,255,0)');
+        gr.addColorStop(1, 'rgba(60,0,8,.45)');
+        g.fillStyle = gr; g.fillRect(0, 0, s, s);
+        // dimple: inner shadow on the lit side, inner glow on the shaded side
+        gr = g.createRadialGradient(c + R * 0.08, c + R * 0.08, R * 0.05, c, c, R * 0.46);
+        gr.addColorStop(0, 'rgba(120,0,12,.35)');
+        gr.addColorStop(0.7, 'rgba(120,0,12,.12)');
+        gr.addColorStop(1, 'rgba(120,0,12,0)');
+        g.fillStyle = gr; g.beginPath(); g.arc(c, c, R * 0.46, 0, Math.PI * 2); g.fill();
+        g.restore();
+        // glossy specular highlight on the rim
+        gr = g.createRadialGradient(c - R * 0.46, c - R * 0.5, 0, c - R * 0.46, c - R * 0.5, R * 0.36);
+        gr.addColorStop(0, 'rgba(255,255,255,.75)');
+        gr.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = gr; g.beginPath(); g.ellipse(c - R * 0.44, c - R * 0.48, R * 0.3, R * 0.16, -0.7, 0, Math.PI * 2); g.fill();
+        // thin outline
+        g.strokeStyle = 'rgba(110,0,12,.5)'; g.lineWidth = 1.5;
+        g.beginPath(); g.arc(c, c, R - 0.8, 0, Math.PI * 2); g.stroke();
       });
-      const wbc = (blur) => this.makeSprite(128, (g, s) => {
-        if (blur) g.filter = 'blur(5px)';
-        g.fillStyle = d ? 'rgba(185,226,228,0.12)' : 'rgba(15,38,93,0.06)';
-        g.strokeStyle = d ? 'rgba(185,226,228,0.32)' : 'rgba(15,38,93,0.2)';
-        g.lineWidth = 2;
-        g.beginPath(); g.arc(s / 2, s / 2, s * 0.4, 0, Math.PI * 2); g.fill(); g.stroke();
-        g.fillStyle = d ? 'rgba(185,226,228,0.3)' : 'rgba(15,38,93,0.18)';
-        [[-0.12, -0.08, 0.14], [0.1, -0.1, 0.12], [0.02, 0.12, 0.13]].forEach(([x, y, r]) => {
-          g.beginPath(); g.arc(s / 2 + x * s, s / 2 + y * s, r * s, 0, Math.PI * 2); g.fill();
+      // edge of the disc, shown when a cell tumbles side-on
+      const rbcSide = this.makeSprite(S, (g, s) => {
+        const c = s / 2, R = s * 0.44;
+        g.globalAlpha = alpha;
+        const gr = g.createLinearGradient(0, c - R, 0, c + R);
+        gr.addColorStop(0, '#9a0f19'); gr.addColorStop(1, '#5e0510');
+        g.fillStyle = gr; g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.fill();
+      });
+      // soft contact shadow
+      const shadow = this.makeSprite(96, (g, s) => {
+        const gr = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
+        gr.addColorStop(0, d ? 'rgba(0,0,0,.35)' : 'rgba(15,38,93,.22)'); gr.addColorStop(1, 'rgba(0,0,0,0)');
+        g.fillStyle = gr; g.fillRect(0, 0, s, s);
+      });
+      // White blood cell: translucent sphere with a textured surface and lobed nucleus
+      const wbc = (blur) => this.makeSprite(S, (g, s) => {
+        const c = s / 2, R = s * 0.42;
+        if (blur) g.filter = 'blur(6px)';
+        let gr = g.createRadialGradient(c - R * 0.35, c - R * 0.4, R * 0.1, c, c, R);
+        gr.addColorStop(0, d ? 'rgba(235,245,255,.55)' : 'rgba(255,255,255,.95)');
+        gr.addColorStop(0.6, d ? 'rgba(170,200,235,.35)' : 'rgba(214,226,246,.85)');
+        gr.addColorStop(1, d ? 'rgba(110,140,200,.3)' : 'rgba(150,172,214,.8)');
+        g.fillStyle = gr; g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.fill();
+        // bumpy membrane
+        for (let i = 0; i < 26; i++) {
+          const a = (i / 26) * Math.PI * 2, rr = R * (0.55 + (i % 3) * 0.12);
+          g.fillStyle = 'rgba(255,255,255,.18)';
+          g.beginPath(); g.arc(c + Math.cos(a) * rr, c + Math.sin(a) * rr, R * 0.09, 0, Math.PI * 2); g.fill();
+        }
+        // nucleus lobes, shaded
+        [[-0.2, -0.05, 0.24], [0.16, -0.14, 0.2], [0.08, 0.2, 0.22]].forEach(([x, y, r]) => {
+          const nx = c + x * R * 2, ny = c + y * R * 2, nr = r * R * 1.25;
+          const ng = g.createRadialGradient(nx - nr * 0.35, ny - nr * 0.35, nr * 0.1, nx, ny, nr);
+          ng.addColorStop(0, d ? 'rgba(170,150,230,.8)' : 'rgba(140,110,200,.85)');
+          ng.addColorStop(1, d ? 'rgba(90,70,170,.8)' : 'rgba(78,52,150,.85)');
+          g.fillStyle = ng; g.beginPath(); g.arc(nx, ny, nr, 0, Math.PI * 2); g.fill();
         });
+        // specular
+        gr = g.createRadialGradient(c - R * 0.45, c - R * 0.5, 0, c - R * 0.45, c - R * 0.5, R * 0.3);
+        gr.addColorStop(0, 'rgba(255,255,255,.8)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+        g.fillStyle = gr; g.beginPath(); g.arc(c - R * 0.45, c - R * 0.5, R * 0.3, 0, Math.PI * 2); g.fill();
       });
-      const plt = this.makeSprite(32, (g, s) => {
-        g.fillStyle = d ? 'rgba(185,226,228,0.5)' : 'rgba(15,38,93,0.3)';
-        g.beginPath(); g.ellipse(s / 2, s / 2, s * 0.36, s * 0.24, 0.4, 0, Math.PI * 2); g.fill();
+      // Platelet: small shaded lens
+      const plt = this.makeSprite(48, (g, s) => {
+        const gr = g.createRadialGradient(s * 0.42, s * 0.4, 1, s / 2, s / 2, s * 0.36);
+        gr.addColorStop(0, '#f3c2c4'); gr.addColorStop(1, d ? '#b05a70' : '#c0697a');
+        g.fillStyle = gr; g.beginPath(); g.ellipse(s / 2, s / 2, s * 0.36, s * 0.24, 0.4, 0, Math.PI * 2); g.fill();
       });
-      return { rbc: rbc(false), rbcBlur: rbc(true), wbc: wbc(false), wbcBlur: wbc(true), plt };
+      return { rbc: rbcFace(false), rbcBlur: rbcFace(true), rbcSide, shadow, wbc: wbc(false), wbcBlur: wbc(true), plt };
     }
 
     resize() {
@@ -267,15 +336,22 @@ const CONFIG = {
         if (!this.dark && w > 960) fade = clamp((x / w - 0.4) / 0.2, 0, 1) * 0.85 + 0.04;
         else if (!this.dark) fade = 0.35;
         if (fade <= 0.01) continue;
-        ctx.globalAlpha = (0.3 + c.z * 0.5) * fade * 0.7;
+        ctx.globalAlpha = (0.35 + c.z * 0.55) * fade * 0.85;
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(c.rot);
         if (c.type === 'rbc') {
-          // tumbling disc: squash along one axis for a 3D feel
-          ctx.scale(1, 0.38 + 0.62 * Math.abs(Math.cos(c.tumble)));
-          const img = c.z < 0.55 && !this.lite ? this.sprites.rbcBlur : this.sprites.rbc;
-          ctx.drawImage(img, -c.size, -c.size, c.size * 2, c.size * 2);
+          // tumbling disc: squash one axis and show the edge thickness as it turns side-on
+          const face = 0.3 + 0.7 * Math.abs(Math.cos(c.tumble));
+          const far = c.z < 0.55 && !this.lite;
+          if (!far) {
+            ctx.save(); ctx.globalAlpha *= 0.55; ctx.translate(c.size * 0.18, c.size * 0.32);
+            ctx.scale(1, face * 0.9); ctx.drawImage(this.sprites.shadow, -c.size, -c.size, c.size * 2, c.size * 2); ctx.restore();
+          }
+          ctx.scale(1, face);
+          const thick = (1 - face) * c.size * 0.34;
+          if (thick > 0.5) ctx.drawImage(this.sprites.rbcSide, -c.size, -c.size + thick / face, c.size * 2, c.size * 2);
+          ctx.drawImage(far ? this.sprites.rbcBlur : this.sprites.rbc, -c.size, -c.size, c.size * 2, c.size * 2);
         } else if (c.type === 'wbc') {
           const img = c.z < 0.55 && !this.lite ? this.sprites.wbcBlur : this.sprites.wbc;
           ctx.drawImage(img, -c.size, -c.size, c.size * 2, c.size * 2);
@@ -341,7 +417,7 @@ const CONFIG = {
     const go = (item) => {
       close();
       search.value = item.title;
-      applyFilter('all');
+      applyFilter(item.card.dataset.cat);
       item.card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
       item.card.animate([{ boxShadow: '0 0 0 0 rgba(79,182,187,.7)' }, { boxShadow: '0 0 0 14px rgba(79,182,187,0)' }], { duration: 1200, iterations: 2 });
     };
@@ -386,10 +462,13 @@ const CONFIG = {
     $$('.svc-card').forEach((c, i) => {
       const show = f === 'all' || c.dataset.cat === f || c.dataset.cat === 'all';
       c.classList.toggle('hide', !show);
+      if (show) c.classList.add('in', 'settled');
       if (show && !reduceMotion) c.animate([{ opacity: 0, transform: 'translateY(24px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: (i % 4) * 50, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' });
     });
   }
   chips.forEach((c) => c.addEventListener('click', () => applyFilter(c.dataset.filter)));
+  // start on Hematology without animating
+  $$('.svc-card').forEach((c) => c.classList.toggle('hide', !(c.dataset.cat === 'hematology' || c.dataset.cat === 'all')));
 
   /* ---------- Count-up numbers ---------- */
   const counters = $$('[data-count]');

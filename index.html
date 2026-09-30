@@ -113,11 +113,11 @@
   <!-- Header -->
   <header class="header" id="top">
     <nav class="container nav" aria-label="Primary">
-      <a class="logo" href="#top" aria-label="Dr. Neema Bhat — home">
+      <a class="logo" href="./" data-home aria-label="Dr. Neema Bhat — home">
         <img src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275">
       </a>
       <ul class="nav-links">
-        <li><a href="#top" class="active">Home</a></li>
+        <li><a href="./" data-home class="active">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#treatments">Treatments</a></li>
         <li><a href="#gallery">Gallery</a></li>
@@ -262,8 +262,7 @@
         </div>
 
         <div class="filter-bar" role="group" aria-label="Filter treatments" data-reveal="up">
-          <button class="chip active" type="button" data-filter="all" aria-pressed="true"><svg class="ic"><use href="#i-grid"/></svg>All · 9</button>
-          <button class="chip" type="button" data-filter="hematology" aria-pressed="false"><svg class="ic"><use href="#i-drop"/></svg>Hematology · 5</button>
+          <button class="chip active" type="button" data-filter="hematology" aria-pressed="true"><svg class="ic"><use href="#i-drop"/></svg>Hematology · 5</button>
           <button class="chip" type="button" data-filter="pediatric" aria-pressed="false"><svg class="ic"><use href="#i-child"/></svg>Pediatric · 4</button>
         </div>
 
@@ -458,7 +457,7 @@
 
   <!-- Mobile app tab bar -->
   <nav class="tabbar" aria-label="Quick navigation">
-    <a href="#top" class="active"><svg class="ic"><use href="#i-home"/></svg>Home</a>
+    <a href="./" data-home class="active"><svg class="ic"><use href="#i-home"/></svg>Home</a>
     <a href="#treatments"><svg class="ic"><use href="#i-grid"/></svg>Treatments</a>
     <a href="#appointment" class="tab-book"><span class="fab"><svg class="ic"><use href="#i-cal"/></svg></span>Book</a>
     <a href="#timings"><svg class="ic"><use href="#i-clock"/></svg>Timings</a>
