@@ -109,6 +109,7 @@ const CONFIG = {
       this.cells = [];
       this.mouse = { x: -9999, y: -9999, tx: 0, ty: 0, px: 0, py: 0 };
       this.running = false;
+      this.lite = (canvas.clientWidth || window.innerWidth) < 768 || !finePointer;
       this.sprites = this.makeSprites();
       this.resize();
       new ResizeObserver(() => this.resize()).observe(canvas.parentElement);
@@ -139,58 +140,83 @@ const CONFIG = {
       return c;
     }
 
+    renderRbcFrames(size, count, alpha) {
+      // half-thickness of the cell at normalised radius r (units of the cell radius)
+      const h = (r2) => 0.5 * Math.sqrt(Math.max(0, 1 - r2)) * (0.207 + 2.003 * r2 - 1.123 * r2 * r2);
+      const L = [-0.48, -0.62, 0.62]; { const m = Math.hypot(...L); L[0] /= m; L[1] /= m; L[2] /= m; }
+      const H = [L[0], L[1], L[2] + 1]; { const m = Math.hypot(...H); H[0] /= m; H[1] /= m; H[2] /= m; }
+      const frames = [];
+      for (let k = 0; k < count; k++) {
+        const tilt = (k / (count - 1)) * Math.PI / 2 * 0.97; // 0 = face-on, ~90° = edge-on
+        const ct = Math.cos(tilt), st = Math.sin(tilt);
+        // signed distance-like field in world space (view along -z, disc tilted about x)
+        const f = (x, y, z) => {
+          const yo = y * ct + z * st, zo = -y * st + z * ct;
+          const r2 = x * x + yo * yo;
+          return r2 >= 1 ? Math.sqrt(r2) - 1 + Math.abs(zo) : Math.abs(zo) - h(r2); // continuous at the rim
+        };
+        const cv = document.createElement('canvas'); cv.width = cv.height = size;
+        const g = cv.getContext('2d'); const img = g.createImageData(size, size); const d = img.data;
+        const scale = 2.2 / size, STEPS = 64, e = 0.003;
+        for (let py = 0; py < size; py++) {
+          for (let px = 0; px < size; px++) {
+            // 2×2 supersampling for smooth edges
+            let R = 0, G = 0, B = 0, A = 0;
+            for (let sy = 0; sy < 2; sy++) for (let sx = 0; sx < 2; sx++) {
+              const x = (px + 0.25 + sx * 0.5) * scale - 1.1, y = (py + 0.25 + sy * 0.5) * scale - 1.1;
+              if (x * x + y * y > 1.02) continue;
+              // march only through the cell's bounding slab ∩ cylinder, front to back
+              let zMax = 1.2, zMin = -1.2;
+              if (ct > 1e-3) { zMax = Math.min(zMax, (0.37 + y * st) / ct); zMin = Math.max(zMin, (-0.37 + y * st) / ct); }
+              if (st > 1e-3) { zMax = Math.min(zMax, (1 - y * ct) / st); zMin = Math.max(zMin, (-1 - y * ct) / st); }
+              if (zMax <= zMin) continue;
+              let prev = zMax, hit = null;
+              for (let i = 0; i <= STEPS; i++) {
+                const z = zMax - ((zMax - zMin) * i) / STEPS;
+                if (f(x, y, z) < 0) {
+                  let lo = z, hi = prev; // refine surface crossing
+                  for (let j = 0; j < 6; j++) { const m = (lo + hi) / 2; if (f(x, y, m) < 0) lo = m; else hi = m; }
+                  hit = hi; break;
+                }
+                prev = z;
+              }
+              if (hit === null) continue;
+              const z = hit;
+              let nx = f(x + e, y, z) - f(x - e, y, z), ny = f(x, y + e, z) - f(x, y - e, z), nz = f(x, y, z + e) - f(x, y, z - e);
+              const nm = Math.hypot(nx, ny, nz) || 1; nx /= nm; ny /= nm; nz /= nm;
+              if (nz < 0) { nx = -nx; ny = -ny; nz = -nz; }
+              const diff = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]);
+              const spec = Math.pow(Math.max(0, nx * H[0] + ny * H[1] + nz * H[2]), 36);
+              const rim = Math.pow(1 - nz, 2.5);
+              // deeper red where the cell is thick, lighter in the thin centre (like a real RBC)
+              const yo = y * ct + z * st, r2 = x * x + yo * yo, thick = Math.min(1, h(r2) / 0.32);
+              const baseR = 170 + 40 * (1 - thick), baseG = 18 + 26 * (1 - thick), baseB = 30 + 24 * (1 - thick);
+              const lit = 0.3 + 0.78 * diff;
+              R += Math.min(255, baseR * lit + 255 * spec * 0.55 + 90 * rim * 0.35);
+              G += Math.min(255, baseG * lit + 235 * spec * 0.5 + 40 * rim * 0.35);
+              B += Math.min(255, baseB * lit + 235 * spec * 0.5 + 45 * rim * 0.35);
+              A += 1;
+            }
+            if (!A) continue;
+            const o = (py * size + px) * 4;
+            d[o] = R / A; d[o + 1] = G / A; d[o + 2] = B / A; d[o + 3] = 255 * alpha * (A / 4);
+          }
+        }
+        g.putImageData(img, 0, 0);
+        frames.push(cv);
+      }
+      return frames;
+    }
+
     makeSprites() {
       const d = this.dark;
       const S = 192; // sprite resolution
       const alpha = d ? 0.9 : 1;
 
-      // Red blood cell, face-on: biconcave disc lit from the top-left
-      const rbcFace = (blur) => this.makeSprite(S, (g, s) => {
-        const c = s / 2, R = s * 0.44;
-        if (blur) g.filter = 'blur(6px)';
-        g.globalAlpha = alpha;
-        // body: dark rim → bright torus → darker dimple
-        let gr = g.createRadialGradient(c, c, 0, c, c, R);
-        gr.addColorStop(0, '#b3121d');
-        gr.addColorStop(0.28, '#c41a26');
-        gr.addColorStop(0.5, '#e8454b');
-        gr.addColorStop(0.72, '#f26a6c');
-        gr.addColorStop(0.9, '#c8202a');
-        gr.addColorStop(1, '#8e0c16');
-        g.fillStyle = gr;
-        g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.fill();
-        g.filter = 'none';
-        g.save(); g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.clip();
-        // directional light (top-left bright, bottom-right shade)
-        gr = g.createLinearGradient(c - R, c - R, c + R, c + R);
-        gr.addColorStop(0, 'rgba(255,235,235,.45)');
-        gr.addColorStop(0.5, 'rgba(255,255,255,0)');
-        gr.addColorStop(1, 'rgba(60,0,8,.45)');
-        g.fillStyle = gr; g.fillRect(0, 0, s, s);
-        // dimple: inner shadow on the lit side, inner glow on the shaded side
-        gr = g.createRadialGradient(c + R * 0.08, c + R * 0.08, R * 0.05, c, c, R * 0.46);
-        gr.addColorStop(0, 'rgba(120,0,12,.35)');
-        gr.addColorStop(0.7, 'rgba(120,0,12,.12)');
-        gr.addColorStop(1, 'rgba(120,0,12,0)');
-        g.fillStyle = gr; g.beginPath(); g.arc(c, c, R * 0.46, 0, Math.PI * 2); g.fill();
-        g.restore();
-        // glossy specular highlight on the rim
-        gr = g.createRadialGradient(c - R * 0.46, c - R * 0.5, 0, c - R * 0.46, c - R * 0.5, R * 0.36);
-        gr.addColorStop(0, 'rgba(255,255,255,.75)');
-        gr.addColorStop(1, 'rgba(255,255,255,0)');
-        g.fillStyle = gr; g.beginPath(); g.ellipse(c - R * 0.44, c - R * 0.48, R * 0.3, R * 0.16, -0.7, 0, Math.PI * 2); g.fill();
-        // thin outline
-        g.strokeStyle = 'rgba(110,0,12,.5)'; g.lineWidth = 1.5;
-        g.beginPath(); g.arc(c, c, R - 0.8, 0, Math.PI * 2); g.stroke();
-      });
-      // edge of the disc, shown when a cell tumbles side-on
-      const rbcSide = this.makeSprite(S, (g, s) => {
-        const c = s / 2, R = s * 0.44;
-        g.globalAlpha = alpha;
-        const gr = g.createLinearGradient(0, c - R, 0, c + R);
-        gr.addColorStop(0, '#9a0f19'); gr.addColorStop(1, '#5e0510');
-        g.fillStyle = gr; g.beginPath(); g.arc(c, c, R, 0, Math.PI * 2); g.fill();
-      });
+      // Red blood cell: a real 3D biconcave disc (Evans–Fung profile), ray-marched and lit
+      // once per tilt angle at start-up, so every frame is just a cheap image draw.
+      const rbcFrames = this.renderRbcFrames(this.lite ? 88 : 128, this.lite ? 12 : 18, alpha);
+      const blurFrames = this.lite ? rbcFrames : rbcFrames.map((f) => this.makeSprite(f.width, (g) => { g.filter = 'blur(5px)'; g.drawImage(f, 0, 0); }));
       // soft contact shadow
       const shadow = this.makeSprite(96, (g, s) => {
         const gr = g.createRadialGradient(s / 2, s / 2, 0, s / 2, s / 2, s / 2);
@@ -231,7 +257,7 @@ const CONFIG = {
         gr.addColorStop(0, '#f3c2c4'); gr.addColorStop(1, d ? '#b05a70' : '#c0697a');
         g.fillStyle = gr; g.beginPath(); g.ellipse(s / 2, s / 2, s * 0.36, s * 0.24, 0.4, 0, Math.PI * 2); g.fill();
       });
-      return { rbc: rbcFace(false), rbcBlur: rbcFace(true), rbcSide, shadow, wbc: wbc(false), wbcBlur: wbc(true), plt };
+      return { rbcFrames, blurFrames, shadow, wbc: wbc(false), wbcBlur: wbc(true), plt };
     }
 
     resize() {
@@ -266,8 +292,8 @@ const CONFIG = {
         size: base * (0.55 + z * 0.9),
         vx: (Math.random() - 0.5) * 0.12 * z,
         vy: (-0.04 - Math.random() * 0.12) * z,
-        rot: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.004,
+        rot: (Math.random() - 0.5) * 0.9,
+        vr: (Math.random() - 0.5) * 0.0012,
         tumble: Math.random() * Math.PI * 2,
         vt: 0.002 + Math.random() * 0.006,
         ox: 0, oy: 0,
@@ -336,22 +362,20 @@ const CONFIG = {
         if (!this.dark && w > 960) fade = clamp((x / w - 0.4) / 0.2, 0, 1) * 0.85 + 0.04;
         else if (!this.dark) fade = 0.35;
         if (fade <= 0.01) continue;
-        ctx.globalAlpha = (0.35 + c.z * 0.55) * fade * 0.85;
+        ctx.globalAlpha = Math.min(1, (0.55 + c.z * 0.45) * fade * (this.dark ? 0.85 : 1));
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(c.rot);
         if (c.type === 'rbc') {
-          // tumbling disc: squash one axis and show the edge thickness as it turns side-on
-          const face = 0.3 + 0.7 * Math.abs(Math.cos(c.tumble));
-          const far = c.z < 0.55 && !this.lite;
-          if (!far) {
-            ctx.save(); ctx.globalAlpha *= 0.55; ctx.translate(c.size * 0.18, c.size * 0.32);
-            ctx.scale(1, face * 0.9); ctx.drawImage(this.sprites.shadow, -c.size, -c.size, c.size * 2, c.size * 2); ctx.restore();
+          // pick the pre-rendered 3D view that matches the cell's current tilt
+          const frames = c.z < 0.55 && !this.lite ? this.sprites.blurFrames : this.sprites.rbcFrames;
+          const t = Math.abs(Math.sin(c.tumble));
+          const img = frames[Math.min(frames.length - 1, Math.round(t * (frames.length - 1)))];
+          if (c.z >= 0.55) {
+            ctx.save(); ctx.globalAlpha *= 0.45; ctx.translate(c.size * 0.2, c.size * 0.36);
+            ctx.scale(1, 0.55 + 0.45 * (1 - t)); ctx.drawImage(this.sprites.shadow, -c.size, -c.size, c.size * 2, c.size * 2); ctx.restore();
           }
-          ctx.scale(1, face);
-          const thick = (1 - face) * c.size * 0.34;
-          if (thick > 0.5) ctx.drawImage(this.sprites.rbcSide, -c.size, -c.size + thick / face, c.size * 2, c.size * 2);
-          ctx.drawImage(far ? this.sprites.rbcBlur : this.sprites.rbc, -c.size, -c.size, c.size * 2, c.size * 2);
+          ctx.drawImage(img, -c.size, -c.size, c.size * 2, c.size * 2);
         } else if (c.type === 'wbc') {
           const img = c.z < 0.55 && !this.lite ? this.sprites.wbcBlur : this.sprites.wbc;
           ctx.drawImage(img, -c.size, -c.size, c.size * 2, c.size * 2);
