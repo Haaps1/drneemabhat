@@ -14,8 +14,7 @@ assets/fonts/           Self-hosted Poppins & Roboto
 
 ## Design
 
-The design system (top bar, pill navigation, gradient buttons, floating cards, card grid,
-mobile tab bar) follows the Veinex Health site; colours are Dr. Bhat's navy #0f265d and teal #4fb6bb,
+The design system (top bar, pill navigation, gradient buttons, floating cards, card grid) follows the Veinex Health site; colours are Dr. Neema Bhat's navy #0f265d and teal #4fb6bb,
 set in `:root` at the top of `assets/css/styles.css`.
 
 ## Updating content

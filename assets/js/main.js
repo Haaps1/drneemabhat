@@ -61,7 +61,7 @@ const CONFIG = {
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
-  const navLinks = $$('.nav-links a, .tabbar a[href^="#"], .tabbar a[data-home]');
+  const navLinks = $$('.nav-links a');
   const setActive = (id) => navLinks.forEach((a) => a.classList.toggle('active', id === 'top' ? a.hasAttribute('data-home') : a.getAttribute('href') === `#${id}`));
 
   // Logo and "Home" links: back to the top of the home page
