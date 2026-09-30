@@ -9,8 +9,14 @@ assets/css/styles.css   Design tokens, layout, responsive rules, motion
 assets/js/main.js       Interactions (cell canvas, reveals, tabs, BMT dial, journey, form)
 assets/images/          Portrait (2 sizes), logo, logo mark (favicon)
 assets/images/gallery/  Gallery photos (full size + 760w)
-assets/fonts/           Self-hosted Poppins & Inter (SIL Open Font License)
+assets/fonts/           Self-hosted Poppins & Roboto
 ```
+
+## Design
+
+The design system (top bar, pill navigation, gradient buttons, floating cards, card grid,
+mobile tab bar) follows the Veinex Health site; colours are Dr. Bhat's navy #0f265d and teal #4fb6bb,
+set in `:root` at the top of `assets/css/styles.css`.
 
 ## Updating content
 

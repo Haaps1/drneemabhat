@@ -18,9 +18,9 @@
   <script>document.documentElement.classList.add('js');</script>
   <link rel="icon" type="image/png" href="assets/images/logo-mark.png">
   <link rel="apple-touch-icon" href="assets/images/logo-mark.png">
-  <link rel="preload" as="image" href="assets/images/dr-neema-bhat-720.webp" imagesrcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w" imagesizes="(max-width: 960px) 80vw, 460px">
-  <link rel="preload" href="assets/fonts/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/images/dr-neema-bhat-720.webp" imagesrcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w" imagesizes="(max-width: 900px) 90vw, 520px">
+  <link rel="preload" href="assets/fonts/poppins-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/roboto-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <script type="application/ld+json">
@@ -62,409 +62,349 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+  <!-- Icon set -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+      <symbol id="i-wa" viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.3 4.3 5 5l1.2-1.3-1.8-1-1 .8c-1-.4-1.8-1.2-2.2-2.2l.8-1-1-1.8L9 9.5z"/></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3c3 4.2 6 7.4 6 11a6 6 0 0 1-12 0c0-3.6 3-6.8 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></symbol>
+      <symbol id="i-child" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/><path d="M17.5 4.5l1.5-1.5M19 7h2"/></symbol>
+      <symbol id="i-marrow" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+      <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/></symbol>
+      <symbol id="i-steth" viewBox="0 0 24 24"><path d="M6 3v6a4 4 0 0 0 8 0V3"/><path d="M10 13v2a5 5 0 0 0 10 0v-2"/><circle cx="20" cy="11" r="2"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-9-5.5-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.5-9 12-9 12z"/><path d="M7 12h3l1.5-2.5L14 15l1.5-3H18"/></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.4.7 4 2.7 4 6"/></symbol>
+      <symbol id="i-doc" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+      <symbol id="i-cells" viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><circle cx="16" cy="15" r="4"/><circle cx="17" cy="6" r="2"/></symbol>
+      <symbol id="i-tumour" viewBox="0 0 24 24"><path d="M12 4c4 0 7 2.5 7 6.5S16 18 12 20c-4-2-7-5.5-7-9.5S8 4 12 4z"/><circle cx="10" cy="10" r="1.5"/><circle cx="14" cy="13" r="1.5"/></symbol>
+      <symbol id="i-bleed" viewBox="0 0 24 24"><path d="M8 3c2 3 4 5 4 7.5A4 4 0 0 1 4 10.5C4 8 6 6 8 3z"/><path d="M16 11c2 3 4 5 4 7.5a4 4 0 0 1-8 0c0-2.5 2-4.5 4-7.5z"/></symbol>
+      <symbol id="i-lymph" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="6" cy="14" r="2"/><circle cx="18" cy="14" r="2"/><circle cx="12" cy="20" r="1.5"/><path d="M12 7v11M7.5 13l3-5M16.5 13l-3-5"/></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8"/></symbol>
+      <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+      <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></symbol>
+      <symbol id="i-quote" viewBox="0 0 40 32"><path d="M0 32V19C0 8 6 1.5 16 0l2 4.5C12 6.5 9.5 10 9 15h7v17zm22 0V19c0-11 6-17.5 16-19l2 4.5C34 6.5 31.5 10 31 15h7v17z"/></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    </defs>
+  </svg>
 
-  <!-- Navigation -->
-  <header class="site-header" id="top">
-    <div class="nav-progress" aria-hidden="true"><span></span></div>
-    <nav class="nav container" aria-label="Primary">
-      <a class="nav__brand" href="#top" aria-label="Dr. Neema Bhat — home">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-info">
+        <a href="tel:+917899756677" data-phone-link><svg class="ic"><use href="#i-phone"/></svg><span data-phone-text>+91 78997 56677</span></a>
+        <a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link><svg class="ic"><use href="#i-wa"/></svg>WhatsApp</a>
+        <span><svg class="ic"><use href="#i-pin"/></svg><span data-location>Apollo Hospitals, Bannerghatta Road</span></span>
+      </div>
+      <a class="topbar-hours" href="#timings"><svg class="ic"><use href="#i-clock"/></svg>OPD Mon–Sat · 11 AM – 4 PM</a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="header" id="top">
+    <nav class="container nav" aria-label="Primary">
+      <a class="logo" href="#top" aria-label="Dr. Neema Bhat — home">
         <img src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275">
       </a>
-      <ul class="nav__links" id="nav-links">
+      <ul class="nav-links">
+        <li><a href="#top" class="active">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#treatments">Treatments</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
         <li><a href="#timings">Timings</a></li>
         <li><a href="#appointment">Contact</a></li>
-        <li class="nav__links-cta"><a class="btn btn--primary" href="#appointment">Book Appointment</a></li>
       </ul>
-      <a class="btn btn--primary btn--sm nav__cta magnetic" href="#appointment">Book Appointment</a>
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
-        <span></span><span></span>
-      </button>
+      <div class="nav-cta">
+        <a class="nav-phone" href="tel:+917899756677" data-phone-link>
+          <span class="ic-ring"><svg class="ic"><use href="#i-phone"/></svg></span>
+          <span><small>Call for appointment</small><span data-phone-text>+91 78997 56677</span></span>
+        </a>
+        <a class="btn btn-primary magnetic" href="#appointment">Book Appointment</a>
+      </div>
+      <div class="app-actions">
+        <a href="tel:+917899756677" data-phone-link aria-label="Call"><svg class="ic"><use href="#i-phone"/></svg></a>
+        <a class="wa" href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link aria-label="WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
+      </div>
     </nav>
   </header>
 
   <main id="main">
 
-    <!-- 1. Hero -->
+    <!-- Hero -->
     <section class="hero" aria-labelledby="hero-title">
+      <span class="blob blob-1" aria-hidden="true"></span>
+      <span class="blob blob-2" aria-hidden="true"></span>
+      <span class="blob blob-3" aria-hidden="true"></span>
+      <svg class="plus-deco" style="top:18%;left:46%" aria-hidden="true"><use href="#i-plus"/></svg>
+      <svg class="plus-deco" style="bottom:22%;left:4%;animation-duration:16s" aria-hidden="true"><use href="#i-plus"/></svg>
       <canvas class="cells-canvas" aria-hidden="true"></canvas>
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <p class="eyebrow" data-reveal="blur"><span class="eyebrow__dot" aria-hidden="true"></span>Hematology · Pediatric Oncology · Bone Marrow Transplant</p>
-          <h1 id="hero-title" class="hero__title" data-reveal="blur" style="--d:.1s">
+
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow" data-reveal="up">Hematology · Pediatric Oncology · BMT</span>
+          <h1 id="hero-title" class="hero-title" data-reveal="up" style="--d:.08s">
             <span class="sr-only">Best Hematologist, Pediatrician and Bone Marrow Transplant Specialist in Bangalore</span>
-            <span class="hero__title-vis" aria-hidden="true">
-              <span class="hero__line">Best <span class="rotator" data-rotator data-words="Hematologist|Pediatrician|Bone Marrow Transplant Specialist"><span class="rotator__word">Hematologist</span></span> in&nbsp;Bangalore</span>
-              <span class="rotator__bar"></span>
-            </span>
+            <span class="hero-title__vis" aria-hidden="true">Best <span class="typed" data-typed data-words="Hematologist|Pediatrician|Bone Marrow Transplant Specialist">Hematologist</span> in <span class="grad-text">Bangalore</span></span>
           </h1>
-          <p class="hero__lead" data-reveal="blur" style="--d:.35s">
-            Dr. Neema Bhat is a US-trained Haemato-Oncologist with more than ten years of experience treating blood disorders and blood cancers in children and adults. She is Program Director and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, Bangalore.
-          </p>
-          <ul class="hero__points" data-reveal="blur" style="--d:.45s">
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>MD (USA) · Fellowship (FAAP), Penn State Health</li>
-            <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/></svg>Program Director &amp; HOD, BMT Unit</li>
-          </ul>
-          <div class="hero__actions" data-reveal="blur" style="--d:.55s">
-            <a class="btn btn--primary btn--lg magnetic" href="#appointment">
-              Book an Appointment
-              <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-            <a class="btn btn--ghost btn--lg magnetic" href="tel:+917899756677" data-phone-link>
-              <svg class="btn__icon btn__icon--lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-              <span data-phone-text>+91 78997 56677</span>
-            </a>
+          <p class="hero-lead" data-reveal="up" style="--d:.16s">Dr. Neema Bhat is a US-trained Haemato-Oncologist with more than ten years of experience treating blood disorders and blood cancers in children and adults. She is Program Director and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, Bangalore.</p>
+          <div class="hero-badges" data-reveal="up" style="--d:.24s">
+            <span><svg class="ic"><use href="#i-shield"/></svg>MD (USA)</span>
+            <span><svg class="ic"><use href="#i-award"/></svg>FAAP Fellowship, Penn State Health</span>
+            <span><svg class="ic"><use href="#i-marrow"/></svg>HOD, BMT Unit</span>
           </div>
-        </div>
-
-        <div class="hero__visual" data-reveal="focus" style="--d:.2s">
-          <figure class="hv">
-            <div class="hv__stage" data-parallax>
-              <span class="hv__grid" aria-hidden="true"></span>
-              <span class="hv__disc" aria-hidden="true"><span class="hv__sweep"></span></span>
-              <svg class="hv__ticks" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="194"/></svg>
-              <svg class="hv__orbit" viewBox="0 0 400 400" aria-hidden="true">
-                <circle cx="200" cy="200" r="176"/>
-                <circle class="hv__orbit-dot" cx="200" cy="24" r="5"/>
-                <circle class="hv__orbit-dot hv__orbit-dot--b" cx="200" cy="376" r="3.5"/>
-              </svg>
-              <img class="hv__img"
-                   src="assets/images/dr-neema-bhat.webp"
-                   srcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w"
-                   sizes="(max-width: 960px) 80vw, 460px"
-                   alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist in Bangalore, in a white coat with arms folded, smiling"
-                   width="1200" height="1873" fetchpriority="high" decoding="async">
-              <span class="hv__chip hv__chip--a" aria-hidden="true"><i></i>Hematology</span>
-              <span class="hv__chip hv__chip--b" aria-hidden="true"><i></i>Pediatric Oncology</span>
-              <span class="hv__chip hv__chip--c" aria-hidden="true"><i></i>Bone Marrow Transplant</span>
+          <div class="hero-actions" data-reveal="up" style="--d:.32s">
+            <a class="btn btn-primary magnetic" href="#appointment"><svg class="ic"><use href="#i-cal"/></svg>Book an Appointment</a>
+            <a class="btn btn-outline magnetic" href="tel:+917899756677" data-phone-link><svg class="ic"><use href="#i-phone"/></svg>Call Now</a>
+          </div>
+          <div class="search-box" data-reveal="up" style="--d:.4s">
+            <label class="sr-only" for="cond-search">Search a condition</label>
+            <div class="field">
+              <svg class="ic"><use href="#i-search"/></svg>
+              <input id="cond-search" type="search" placeholder="Search a condition, e.g. thalassemia, leukaemia…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list">
+              <button type="button" aria-label="Search"><svg class="ic"><use href="#i-arrow"/></svg></button>
             </div>
-            <figcaption class="hv__card">
-              <p class="hv__name">Dr. Neema Bhat</p>
-              <p class="hv__role">Haemato-Oncologist, Pediatric Oncologist &amp; BMT Physician</p>
-              <ul class="hv__edu">
-                <li><span>MD</span>United States</li>
-                <li><span>FAAP</span>Fellowship, Pediatric Hematology, Oncology &amp; BMT — Penn State Health</li>
-              </ul>
-            </figcaption>
-          </figure>
+            <div class="search-results" id="search-results" role="listbox"></div>
+          </div>
+        </div>
+
+        <div class="hero-visual" data-reveal="zoom" style="--d:.15s">
+          <div class="hero-img" data-parallax>
+            <img src="assets/images/dr-neema-bhat.webp"
+                 srcset="assets/images/dr-neema-bhat-720.webp 720w, assets/images/dr-neema-bhat.webp 1200w"
+                 sizes="(max-width: 900px) 90vw, 520px"
+                 alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist in Bangalore, in a white coat with arms folded, smiling"
+                 width="1200" height="1873" fetchpriority="high" decoding="async">
+          </div>
+          <div class="float-card fc-1"><span class="fc-ic"><svg class="ic"><use href="#i-clock"/></svg></span><div><b>10+ Years</b><span>Specialist experience</span></div></div>
+          <div class="float-card fc-2"><span class="fc-ic"><svg class="ic"><use href="#i-marrow"/></svg></span><div><b>100+</b><span>Bone marrow transplants</span></div></div>
+          <div class="float-card fc-3"><span class="fc-ic fc-ic--navy"><svg class="ic"><use href="#i-steth"/></svg></span><div><b>Dr. Neema Bhat</b><span>MD (USA) · FAAP</span></div></div>
         </div>
       </div>
     </section>
 
-    <!-- 2. Doctor profile -->
-    <section class="section section--cream about" id="about" aria-labelledby="about-title">
-      <div class="container about__grid">
-        <aside class="about__side" data-reveal="focus" aria-label="Current role and training">
-          <div class="glance">
-            <p class="glance__label">Currently</p>
-            <p class="glance__title">Program Director &amp; Head, Bone Marrow Transplant Unit</p>
-            <p class="glance__sub">Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation</p>
-            <dl class="glance__rows">
-              <div><dt>Training</dt><dd>MD (USA) · Fellowship (FAAP), Penn State Health</dd></div>
-              <div><dt>Treats</dt><dd>Children &amp; adults</dd></div>
-            </dl>
-            <a class="btn btn--primary btn--block magnetic" href="#appointment">Book an Appointment</a>
-          </div>
-        </aside>
-
-        <div class="about__copy">
-          <p class="kicker" data-reveal="blur">About the Doctor</p>
-          <h2 id="about-title" class="h2" data-split>A decade of dedicated hematology-oncology care</h2>
-          <div class="prose" data-reveal="blur" style="--d:.15s">
-            <p>Dr. Neema Bhat is a Haemato-Oncologist based in Bangalore, with more than ten years of specialised experience treating blood disorders and blood cancers in both children and adults. She completed her MD in the United States, followed by a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation at Penn State Health — training that shapes how she diagnoses, stages and treats every patient who comes to her.</p>
-            <p>She currently serves as Program Director and Head of the Bone Marrow Transplant Unit at Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation, and has previously practised at BGS Gleneagles Global Hospitals and Fortis Hospitals in Bangalore.</p>
-            <p>She is known for a patient-centric approach that prioritises clear communication and treatment plans built around each individual’s needs, rather than a one-size-fits-all protocol.</p>
-          </div>
-          <ol class="career" data-reveal="blur" style="--d:.25s" aria-label="Career timeline">
-            <li class="is-current"><span>2020 – Present</span>Program Director &amp; HOD, BMT Unit — Bhagawan Mahaveer Jain Hospital</li>
-            <li><span>2020 – 2023</span>Consultant Hematologist, BMT &amp; Pediatric Oncology — Fortis Hospitals</li>
-            <li><span>2018 – 2020</span>Consultant Hematologist, BMT &amp; Pediatric Oncology — BGS Gleneagles Global Hospitals</li>
-            <li><span>2018</span>Clinical Hematologist &amp; BMT Physician — Sankalp India Foundation, Peopletree Hospitals</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Treatments + experience -->
-    <section class="section treatments" id="treatments" aria-labelledby="treat-title">
+    <!-- Quick callback -->
+    <div class="lead-strip">
       <div class="container">
-        <header class="section-head section-head--center">
-          <p class="kicker kicker--center" data-reveal="blur">Treatments</p>
-          <h2 id="treat-title" class="h2 h2--center" data-split>Best Hematologist in Bangalore</h2>
-          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Nine specialist treatments across adult hematology and pediatric hemato-oncology.</p>
-        </header>
-
-        <div class="treat-filter" role="group" aria-label="Filter treatments" data-reveal="blur">
-          <span class="treat-filter__thumb" aria-hidden="true"></span>
-          <button type="button" aria-pressed="true" data-filter="all">All <em>9</em></button>
-          <button type="button" aria-pressed="false" data-filter="hematology">Hematology <em>5</em></button>
-          <button type="button" aria-pressed="false" data-filter="pediatric">Pediatric <em>4</em></button>
-        </div>
-
-        <div class="treat-groups" data-treatments>
-          <div class="treat-group" data-group="hematology">
-            <div class="treat-group__head" data-reveal="blur">
-              <span class="treat-group__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4c4 5.6 8 9.9 8 14.7A8 8 0 0 1 8 18.7C8 13.9 12 9.6 16 4z"/></svg></span>
-              <div><h3>Hematology</h3><p>Blood disorders &amp; blood cancers in adults and children</p></div>
-            </div>
-            <ul class="treat-list">
-              <li class="treat spotlight" data-reveal="rise"><span class="treat__num">01</span><div><h4>Anaemia Treatment</h4><p>Iron-deficiency, nutritional and inherited anaemias — finding the cause, not just treating the count.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.05s"><span class="treat__num">02</span><div><h4>Thalassemia Treatment</h4><p>Transfusion programmes, iron chelation and evaluation for curative transplant.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.1s"><span class="treat__num">03</span><div><h4>Hemophilia &amp; Bleeding Disorders</h4><p>Diagnosis and long-term management of hemophilia, von Willebrand disease and low platelets.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.15s"><span class="treat__num">04</span><div><h4>Leukaemia (Blood Cancer) Treatment</h4><p>Acute and chronic leukaemias, with chemotherapy, targeted therapy and transplant planning.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.2s"><span class="treat__num">05</span><div><h4>Lymphoma &amp; Myeloma Treatment</h4><p>Accurate subtyping and tailored treatment for Hodgkin, non-Hodgkin lymphoma and myeloma.</p></div></li>
-            </ul>
-          </div>
-
-          <div class="treat-group" data-group="pediatric">
-            <div class="treat-group__head" data-reveal="blur" style="--d:.08s">
-              <span class="treat-group__icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="10" r="4.5"/><path d="M7 27c0-5 4-9 9-9s9 4 9 9"/></svg></span>
-              <div><h3>Pediatric</h3><p>Blood disorders &amp; cancers in infants, children and teens</p></div>
-            </div>
-            <ul class="treat-list">
-              <li class="treat spotlight" data-reveal="rise"><span class="treat__num">06</span><div><h4>Childhood Leukaemia &amp; Lymphoma</h4><p>Child-centred treatment with close attention to comfort, growth and schooling.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.05s"><span class="treat__num">07</span><div><h4>Pediatric Solid Tumours</h4><p>Neuroblastoma, Wilms tumour, sarcomas and more, with a multidisciplinary team.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.1s"><span class="treat__num">08</span><div><h4>Pediatric Blood Disorders</h4><p>Sickle cell disease, aplastic anaemia, ITP and immune disorders in children.</p></div></li>
-              <li class="treat spotlight" data-reveal="rise" style="--d:.15s"><span class="treat__num">09</span><div><h4>Bone Marrow Transplant</h4><p>Autologous and allogeneic transplants for children and adults, from donor matching to follow-up.</p></div></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Experience -->
-        <div class="stats" data-reveal="focus" aria-label="Experience in numbers">
-          <canvas class="cells-canvas cells-canvas--dark" aria-hidden="true"></canvas>
-          <div class="stats__intro">
-            <p class="kicker kicker--light">Experience</p>
-            <p class="stats__title">Trusted care, built over a decade</p>
-          </div>
-          <ul class="stats__grid">
-            <li class="stat">
-              <svg class="stat__gauge" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52"/><circle class="stat__arc" cx="60" cy="60" r="52" pathLength="100" style="--val:80"/></svg>
-              <p class="stat__num"><span data-count="10">10</span>+</p><p class="stat__label">Years of experience</p>
-            </li>
-            <li class="stat">
-              <svg class="stat__gauge" viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="52"/><circle class="stat__arc" cx="60" cy="60" r="52" pathLength="100" style="--val:92"/></svg>
-              <p class="stat__num"><span data-count="100">100</span>+</p><p class="stat__label">Bone marrow transplants</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Gallery -->
-    <section class="section section--cream gallery" id="gallery" aria-labelledby="gallery-title">
-      <div class="container">
-        <header class="section-head section-head--split">
+        <form class="lead-card" id="lead-form" data-reveal="up" novalidate>
           <div>
-            <p class="kicker" data-reveal="blur">Gallery</p>
-            <h2 id="gallery-title" class="h2" data-split>With patients, care teams and peers</h2>
+            <h2 class="lead-card__title">Get a call back</h2>
+            <p>Share your number and our team will reach out to book a consultation.</p>
           </div>
-          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Moments from the ward, the clinic and medical conferences in India and abroad. Select a photo to view it larger.</p>
-        </header>
+          <div class="lead-form-inline">
+            <div class="form-group"><svg class="ic"><use href="#i-users"/></svg><label class="sr-only" for="l-name">Your name</label><input class="form-control" id="l-name" name="name" type="text" placeholder="Your name" autocomplete="name" required></div>
+            <div class="form-group"><svg class="ic"><use href="#i-phone"/></svg><label class="sr-only" for="l-phone">Mobile number</label><input class="form-control" id="l-phone" name="phone" type="tel" inputmode="tel" placeholder="Mobile number" autocomplete="tel" required pattern="[0-9+\s\-]{8,}"></div>
+            <div class="form-group"><svg class="ic"><use href="#i-drop"/></svg><label class="sr-only" for="l-topic">Concern</label>
+              <select class="form-control" id="l-topic" name="topic">
+                <option value="New consultation">Select concern</option>
+                <option>Anaemia / blood disorder</option>
+                <option>Thalassemia</option>
+                <option>Leukaemia / lymphoma / myeloma</option>
+                <option>Childhood cancer</option>
+                <option>Bone marrow transplant</option>
+                <option>Second opinion</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Call Me Back</button>
+          </div>
+          <p class="lead-card__note" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
 
-        <ul class="gallery__grid" data-gallery>
-          <li class="shot shot--wide" data-reveal="focus">
-            <button type="button" class="shot__btn" data-full="assets/images/gallery/young-patient-care-team.webp">
-              <img src="assets/images/gallery/young-patient-care-team-760.webp" srcset="assets/images/gallery/young-patient-care-team-760.webp 760w, assets/images/gallery/young-patient-care-team.webp 1400w" sizes="(max-width: 767px) 92vw, 58vw" alt="Dr. Neema Bhat with the nursing and care team beside a young patient in a hospital room" width="1400" height="788" loading="lazy" decoding="async">
-              <span class="shot__cap">With a young patient and the care team</span>
-            </button>
-          </li>
-          <li class="shot shot--tall" data-reveal="focus" style="--d:.08s">
-            <button type="button" class="shot__btn" data-full="assets/images/gallery/with-patients.webp">
-              <img src="assets/images/gallery/with-patients-760.webp" srcset="assets/images/gallery/with-patients-760.webp 760w, assets/images/gallery/with-patients.webp 960w" sizes="(max-width: 767px) 92vw, 34vw" alt="Dr. Neema Bhat standing with two smiling patients at the hospital" width="960" height="1280" loading="lazy" decoding="async">
-              <span class="shot__cap">With patients after a follow-up visit</span>
-            </button>
-          </li>
-          <li class="shot" data-reveal="focus">
-            <button type="button" class="shot__btn" data-full="assets/images/gallery/pediatric-tumour-care-ethiopia.webp">
-              <img src="assets/images/gallery/pediatric-tumour-care-ethiopia-760.webp" srcset="assets/images/gallery/pediatric-tumour-care-ethiopia-760.webp 760w, assets/images/gallery/pediatric-tumour-care-ethiopia.webp 1400w" sizes="(max-width: 767px) 92vw, 30vw" alt="Dr. Neema Bhat with doctors at a programme to improve pediatric tumour care in Ethiopia" width="1400" height="1050" loading="lazy" decoding="async">
-              <span class="shot__cap">Pediatric tumour care programme, Ethiopia · 2025</span>
-            </button>
-          </li>
-          <li class="shot" data-reveal="focus" style="--d:.06s">
-            <button type="button" class="shot__btn" data-full="assets/images/gallery/conference-mumbai-hematology-group.webp">
-              <img src="assets/images/gallery/conference-mumbai-hematology-group-760.webp" srcset="assets/images/gallery/conference-mumbai-hematology-group-760.webp 760w, assets/images/gallery/conference-mumbai-hematology-group.webp 1400w" sizes="(max-width: 767px) 92vw, 30vw" alt="Dr. Neema Bhat with fellow delegates at the Mumbai Hematology Group mid-term conference" width="1400" height="933" loading="lazy" decoding="async">
-              <span class="shot__cap">Mumbai Hematology Group mid-term conference · 2025</span>
-            </button>
-          </li>
-          <li class="shot" data-reveal="focus" style="--d:.12s">
-            <button type="button" class="shot__btn" data-full="assets/images/gallery/conference-bengaluru-physicians-update.webp">
-              <img src="assets/images/gallery/conference-bengaluru-physicians-update-760.webp" srcset="assets/images/gallery/conference-bengaluru-physicians-update-760.webp 760w, assets/images/gallery/conference-bengaluru-physicians-update.webp 1400w" sizes="(max-width: 767px) 92vw, 30vw" alt="Dr. Neema Bhat with speakers at Bengaluru Physicians Update-4, Innovations and Best Practices" width="1400" height="1050" loading="lazy" decoding="async">
-              <span class="shot__cap">Bengaluru Physicians Update-4 · August 2025</span>
-            </button>
-          </li>
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span><svg class="ic"><use href="#i-drop"/></svg>Anaemia</span><span><svg class="ic"><use href="#i-cells"/></svg>Thalassemia</span><span><svg class="ic"><use href="#i-bleed"/></svg>Hemophilia</span><span><svg class="ic"><use href="#i-cells"/></svg>Leukaemia</span><span><svg class="ic"><use href="#i-lymph"/></svg>Lymphoma &amp; Myeloma</span><span><svg class="ic"><use href="#i-child"/></svg>Childhood Cancers</span><span><svg class="ic"><use href="#i-tumour"/></svg>Pediatric Solid Tumours</span><span><svg class="ic"><use href="#i-marrow"/></svg>Bone Marrow Transplant</span>
+        <span><svg class="ic"><use href="#i-drop"/></svg>Anaemia</span><span><svg class="ic"><use href="#i-cells"/></svg>Thalassemia</span><span><svg class="ic"><use href="#i-bleed"/></svg>Hemophilia</span><span><svg class="ic"><use href="#i-cells"/></svg>Leukaemia</span><span><svg class="ic"><use href="#i-lymph"/></svg>Lymphoma &amp; Myeloma</span><span><svg class="ic"><use href="#i-child"/></svg>Childhood Cancers</span><span><svg class="ic"><use href="#i-tumour"/></svg>Pediatric Solid Tumours</span><span><svg class="ic"><use href="#i-marrow"/></svg>Bone Marrow Transplant</span>
+      </div>
+    </div>
+
+    <!-- About -->
+    <section class="section bg-white" id="about" aria-labelledby="about-title">
+      <div class="container why-grid">
+        <div class="why-img" data-reveal="left">
+          <div class="main"><img src="assets/images/gallery/young-patient-care-team-760.webp" srcset="assets/images/gallery/young-patient-care-team-760.webp 760w, assets/images/gallery/young-patient-care-team.webp 1400w" sizes="(max-width: 900px) 90vw, 560px" alt="Dr. Neema Bhat with the nursing and care team beside a young patient in a hospital room" width="1400" height="788" loading="lazy" decoding="async"></div>
+          <div class="sub"><img src="assets/images/gallery/with-patients-760.webp" alt="Dr. Neema Bhat with two patients at the hospital" width="760" height="1013" loading="lazy" decoding="async"></div>
+          <div class="exp-badge"><b><span data-count="10">10</span>+</b><span>Years of<br>experience</span></div>
+        </div>
+        <div>
+          <span class="eyebrow" data-reveal="up">About the Doctor</span>
+          <h2 id="about-title" data-reveal="up" style="--d:.06s">A decade of dedicated <span class="grad-text">hematology-oncology</span> care</h2>
+          <p data-reveal="up" style="--d:.12s">Dr. Neema Bhat is a Haemato-Oncologist based in Bangalore, with more than ten years of specialised experience treating blood disorders and blood cancers in both children and adults. She completed her MD in the United States, followed by a fellowship (FAAP) in Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation at Penn State Health — training that shapes how she diagnoses, stages and treats every patient who comes to her.</p>
+          <p data-reveal="up" style="--d:.16s">She is known for a patient-centric approach that prioritises clear communication and treatment plans built around each individual’s needs, rather than a one-size-fits-all protocol.</p>
+          <div class="feature-list">
+            <div class="feature" data-reveal="right"><span class="f-ic"><svg class="ic"><use href="#i-marrow"/></svg></span><div><h3>Program Director &amp; HOD, BMT Unit</h3><p>Bhagawan Mahaveer Jain Hospital, in partnership with Sankalp India Foundation (2020 – present)</p></div></div>
+            <div class="feature" data-reveal="right" style="--d:.08s"><span class="f-ic"><svg class="ic"><use href="#i-award"/></svg></span><div><h3>MD (USA) · Fellowship (FAAP)</h3><p>Pediatric Hematology, Oncology &amp; Bone Marrow Transplantation — Penn State Health</p></div></div>
+            <div class="feature" data-reveal="right" style="--d:.16s"><span class="f-ic"><svg class="ic"><use href="#i-steth"/></svg></span><div><h3>Previously in Bangalore</h3><p>Fortis Hospitals (2020 – 2023) · BGS Gleneagles Global Hospitals (2018 – 2020) · Sankalp India Foundation, Peopletree Hospitals (2018)</p></div></div>
+          </div>
+          <a class="btn btn-teal magnetic" href="#appointment" data-reveal="up">Talk to Dr. Bhat<svg class="ic"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Treatments -->
+    <section class="section" id="treatments" aria-labelledby="treat-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-reveal="up">Treatments</span>
+          <h2 id="treat-title" data-reveal="up" style="--d:.06s">Best <span class="grad-text">Hematologist</span> in Bangalore</h2>
+          <p data-reveal="up" style="--d:.12s">Nine specialist treatments across adult hematology and pediatric hemato-oncology.</p>
+        </div>
+
+        <div class="filter-bar" role="group" aria-label="Filter treatments" data-reveal="up">
+          <button class="chip active" type="button" data-filter="all" aria-pressed="true"><svg class="ic"><use href="#i-grid"/></svg>All · 9</button>
+          <button class="chip" type="button" data-filter="hematology" aria-pressed="false"><svg class="ic"><use href="#i-drop"/></svg>Hematology · 5</button>
+          <button class="chip" type="button" data-filter="pediatric" aria-pressed="false"><svg class="ic"><use href="#i-child"/></svg>Pediatric · 4</button>
+        </div>
+
+        <div class="services-grid" data-services>
+          <article class="svc-card tilt" data-cat="hematology" data-reveal="up"><span class="svc-tag">Hematology</span><span class="svc-icon"><svg class="ic"><use href="#i-drop"/></svg></span><h3>Anaemia Treatment</h3><p>Iron-deficiency, nutritional and inherited anaemias — finding the cause, not just treating the count.</p><a class="svc-link" href="#appointment" data-topic="Anaemia / blood disorder">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="hematology" data-reveal="up" style="--d:.05s"><span class="svc-tag">Hematology</span><span class="svc-icon"><svg class="ic"><use href="#i-cells"/></svg></span><h3>Thalassemia Treatment</h3><p>Transfusion programmes, iron chelation and evaluation for curative transplant.</p><a class="svc-link" href="#appointment" data-topic="Thalassemia">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="hematology" data-reveal="up" style="--d:.1s"><span class="svc-tag">Hematology</span><span class="svc-icon"><svg class="ic"><use href="#i-bleed"/></svg></span><h3>Hemophilia &amp; Bleeding Disorders</h3><p>Diagnosis and long-term management of hemophilia, von Willebrand disease and low platelets.</p><a class="svc-link" href="#appointment" data-topic="Anaemia / blood disorder">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="hematology" data-reveal="up" style="--d:.15s"><span class="svc-tag">Hematology</span><span class="svc-icon"><svg class="ic"><use href="#i-cells"/></svg></span><h3>Leukaemia (Blood Cancer)</h3><p>Acute and chronic leukaemias, with chemotherapy, targeted therapy and transplant planning.</p><a class="svc-link" href="#appointment" data-topic="Leukaemia / lymphoma / myeloma">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="hematology" data-reveal="up"><span class="svc-tag">Hematology</span><span class="svc-icon"><svg class="ic"><use href="#i-lymph"/></svg></span><h3>Lymphoma &amp; Myeloma</h3><p>Accurate subtyping and tailored treatment for Hodgkin, non-Hodgkin lymphoma and myeloma.</p><a class="svc-link" href="#appointment" data-topic="Leukaemia / lymphoma / myeloma">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="pediatric" data-reveal="up" style="--d:.05s"><span class="svc-tag svc-tag--ped">Pediatric</span><span class="svc-icon"><svg class="ic"><use href="#i-child"/></svg></span><h3>Childhood Leukaemia &amp; Lymphoma</h3><p>Child-centred treatment with close attention to comfort, growth and schooling.</p><a class="svc-link" href="#appointment" data-topic="Childhood cancer">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="pediatric" data-reveal="up" style="--d:.1s"><span class="svc-tag svc-tag--ped">Pediatric</span><span class="svc-icon"><svg class="ic"><use href="#i-tumour"/></svg></span><h3>Pediatric Solid Tumours</h3><p>Neuroblastoma, Wilms tumour, sarcomas and more, with a multidisciplinary team.</p><a class="svc-link" href="#appointment" data-topic="Childhood cancer">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="pediatric" data-reveal="up" style="--d:.15s"><span class="svc-tag svc-tag--ped">Pediatric</span><span class="svc-icon"><svg class="ic"><use href="#i-heart"/></svg></span><h3>Pediatric Blood Disorders</h3><p>Sickle cell disease, aplastic anaemia, ITP and immune disorders in children.</p><a class="svc-link" href="#appointment" data-topic="Anaemia / blood disorder">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt" data-cat="pediatric" data-reveal="up"><span class="svc-tag svc-tag--ped">Pediatric</span><span class="svc-icon"><svg class="ic"><use href="#i-marrow"/></svg></span><h3>Bone Marrow Transplant</h3><p>Autologous and allogeneic transplants for children and adults, from donor matching to follow-up.</p><a class="svc-link" href="#appointment" data-topic="Bone marrow transplant">Book consultation<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt svc-card--extra" data-cat="all" data-reveal="up" style="--d:.05s"><span class="svc-icon"><svg class="ic"><use href="#i-doc"/></svg></span><h3>Second Opinion</h3><p>Already have a diagnosis or treatment plan? Bring your reports for a specialist review.</p><a class="svc-link" href="#appointment" data-topic="Second opinion">Request a review<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt svc-card--extra" data-cat="all" data-reveal="up" style="--d:.1s"><span class="svc-icon"><svg class="ic"><use href="#i-clock"/></svg></span><h3>OPD Timings</h3><p>Monday to Saturday at Apollo Hospitals, Bannerghatta Road, plus evening Therapy Clinic.</p><a class="svc-link" href="#timings">See timings<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+          <article class="svc-card tilt svc-card--extra" data-cat="all" data-reveal="up" style="--d:.15s"><span class="svc-icon"><svg class="ic"><use href="#i-wa"/></svg></span><h3>Chat on WhatsApp</h3><p>Message the team to ask a question or book a consultation.</p><a class="svc-link" href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link>Open WhatsApp<svg class="ic"><use href="#i-arrow"/></svg></a></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section-sm bg-white" aria-label="Experience in numbers">
+      <div class="container">
+        <div class="stats" data-reveal="zoom">
+          <div class="stat"><span class="stat__ic"><svg class="ic"><use href="#i-clock"/></svg></span><b><span data-count="10">10</span>+</b><span>Years of experience</span></div>
+          <div class="stat"><span class="stat__ic"><svg class="ic"><use href="#i-marrow"/></svg></span><b><span data-count="100">100</span>+</b><span>Bone marrow transplants</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" data-reveal="up">Gallery</span>
+          <h2 id="gallery-title" data-reveal="up" style="--d:.06s">With patients, care teams <span class="grad-text">and peers</span></h2>
+          <p data-reveal="up" style="--d:.12s">Moments from the ward, the clinic and medical conferences in India and abroad. Tap a photo to view it larger.</p>
+        </div>
+        <ul class="gallery-grid" data-gallery>
+          <li class="shot shot--wide" data-reveal="zoom"><button type="button" class="shot__btn" data-full="assets/images/gallery/young-patient-care-team.webp"><img src="assets/images/gallery/young-patient-care-team-760.webp" srcset="assets/images/gallery/young-patient-care-team-760.webp 760w, assets/images/gallery/young-patient-care-team.webp 1400w" sizes="(max-width: 767px) 92vw, 58vw" alt="Dr. Neema Bhat with the nursing and care team beside a young patient in a hospital room" width="1400" height="788" loading="lazy" decoding="async"><span class="shot__cap">With a young patient and the care team</span></button></li>
+          <li class="shot shot--tall" data-reveal="zoom" style="--d:.08s"><button type="button" class="shot__btn" data-full="assets/images/gallery/with-patients.webp"><img src="assets/images/gallery/with-patients-760.webp" srcset="assets/images/gallery/with-patients-760.webp 760w, assets/images/gallery/with-patients.webp 960w" sizes="(max-width: 767px) 92vw, 34vw" alt="Dr. Neema Bhat standing with two smiling patients at the hospital" width="960" height="1280" loading="lazy" decoding="async"><span class="shot__cap">With patients after a follow-up visit</span></button></li>
+          <li class="shot" data-reveal="zoom"><button type="button" class="shot__btn" data-full="assets/images/gallery/pediatric-tumour-care-ethiopia.webp"><img src="assets/images/gallery/pediatric-tumour-care-ethiopia-760.webp" srcset="assets/images/gallery/pediatric-tumour-care-ethiopia-760.webp 760w, assets/images/gallery/pediatric-tumour-care-ethiopia.webp 1400w" sizes="(max-width: 767px) 92vw, 30vw" alt="Dr. Neema Bhat with doctors at a programme to improve pediatric tumour care in Ethiopia" width="1400" height="1050" loading="lazy" decoding="async"><span class="shot__cap">Pediatric tumour care programme, Ethiopia · 2025</span></button></li>
+          <li class="shot" data-reveal="zoom" style="--d:.06s"><button type="button" class="shot__btn" data-full="assets/images/gallery/conference-mumbai-hematology-group.webp"><img src="assets/images/gallery/conference-mumbai-hematology-group-760.webp" srcset="assets/images/gallery/conference-mumbai-hematology-group-760.webp 760w, assets/images/gallery/conference-mumbai-hematology-group.webp 1400w" sizes="(max-width: 767px) 92vw, 30vw" alt="Dr. Neema Bhat with fellow delegates at the Mumbai Hematology Group mid-term conference" width="1400" height="933" loading="lazy" decoding="async"><span class="shot__cap">Mumbai Hematology Group mid-term conference · 2025</span></button></li>
+          <li class="shot" data-reveal="zoom" style="--d:.12s"><button type="button" class="shot__btn" data-full="assets/images/gallery/conference-bengaluru-physicians-update.webp"><img src="assets/images/gallery/conference-bengaluru-physicians-update-760.webp" srcset="assets/images/gallery/conference-bengaluru-physicians-update-760.webp 760w, assets/images/gallery/conference-bengaluru-physicians-update.webp 1400w" sizes="(max-width: 767px) 92vw, 30vw" alt="Dr. Neema Bhat with speakers at Bengaluru Physicians Update-4, Innovations and Best Practices" width="1400" height="1050" loading="lazy" decoding="async"><span class="shot__cap">Bengaluru Physicians Update-4 · August 2025</span></button></li>
         </ul>
       </div>
     </section>
 
-    <!-- 5. Testimonials
+    <!-- Testimonials
          PLACEHOLDERS: replace each quote, name and treatment with a genuine review,
          shared with the patient's (or parent's) written consent, then remove the
          "Sample" badges and the note below the heading. -->
-    <section class="section testimonials" id="testimonials" aria-labelledby="testi-title">
+    <section class="section bg-soft" id="testimonials" aria-labelledby="testi-title">
       <div class="container">
-        <header class="section-head section-head--center">
-          <p class="kicker kicker--center" data-reveal="blur">Testimonials</p>
-          <h2 id="testi-title" class="h2 h2--center" data-split>What patients and families say</h2>
-          <p class="testi-note" data-reveal="blur" style="--d:.1s">Sample layout — to be replaced with genuine patient reviews.</p>
-        </header>
-
+        <div class="section-head">
+          <span class="eyebrow" data-reveal="up">Testimonials</span>
+          <h2 id="testi-title" data-reveal="up" style="--d:.06s">What patients and <span class="grad-text">families say</span></h2>
+          <p class="testi-note" data-reveal="up" style="--d:.12s">Sample layout — to be replaced with genuine patient reviews.</p>
+        </div>
         <div class="testi-grid">
-          <figure class="testi-card spotlight" data-reveal="rise">
-            <span class="testi-card__badge">Sample</span>
-            <svg class="testi-card__quote" viewBox="0 0 40 32" aria-hidden="true"><path d="M0 32V19C0 8 6 1.5 16 0l2 4.5C12 6.5 9.5 10 9 15h7v17zm22 0V19c0-11 6-17.5 16-19l2 4.5C34 6.5 31.5 10 31 15h7v17z"/></svg>
-            <blockquote>Patient review goes here — for example, how the diagnosis was explained, how the family was supported, and how treatment went.</blockquote>
-            <figcaption><span class="testi-card__avatar" aria-hidden="true">P</span><span><strong>Patient name</strong><small>Parent of a patient · Treatment</small></span></figcaption>
-          </figure>
-          <figure class="testi-card spotlight" data-reveal="rise" style="--d:.08s">
-            <span class="testi-card__badge">Sample</span>
-            <svg class="testi-card__quote" viewBox="0 0 40 32" aria-hidden="true"><path d="M0 32V19C0 8 6 1.5 16 0l2 4.5C12 6.5 9.5 10 9 15h7v17zm22 0V19c0-11 6-17.5 16-19l2 4.5C34 6.5 31.5 10 31 15h7v17z"/></svg>
-            <blockquote>Patient review goes here — a genuine account from someone treated by Dr. Bhat, shared with their written consent.</blockquote>
-            <figcaption><span class="testi-card__avatar" aria-hidden="true">P</span><span><strong>Patient name</strong><small>Patient · Treatment</small></span></figcaption>
-          </figure>
-          <figure class="testi-card spotlight" data-reveal="rise" style="--d:.16s">
-            <span class="testi-card__badge">Sample</span>
-            <svg class="testi-card__quote" viewBox="0 0 40 32" aria-hidden="true"><path d="M0 32V19C0 8 6 1.5 16 0l2 4.5C12 6.5 9.5 10 9 15h7v17zm22 0V19c0-11 6-17.5 16-19l2 4.5C34 6.5 31.5 10 31 15h7v17z"/></svg>
-            <blockquote>Patient review goes here — keep it in the patient’s own words; a short, specific review reads as more trustworthy than a long one.</blockquote>
-            <figcaption><span class="testi-card__avatar" aria-hidden="true">P</span><span><strong>Patient name</strong><small>Family member · Treatment</small></span></figcaption>
-          </figure>
+          <figure class="testi" data-reveal="flip"><span class="testi__badge">Sample</span><svg class="quote" aria-hidden="true"><use href="#i-quote"/></svg><blockquote>Patient review goes here — for example, how the diagnosis was explained, how the family was supported, and how treatment went.</blockquote><figcaption class="testi-user"><span class="av" aria-hidden="true">P</span><span><b>Patient name</b><span>Parent of a patient · Treatment</span></span></figcaption></figure>
+          <figure class="testi" data-reveal="flip" style="--d:.08s"><span class="testi__badge">Sample</span><svg class="quote" aria-hidden="true"><use href="#i-quote"/></svg><blockquote>Patient review goes here — a genuine account from someone treated by Dr. Bhat, shared with their written consent.</blockquote><figcaption class="testi-user"><span class="av" aria-hidden="true">P</span><span><b>Patient name</b><span>Patient · Treatment</span></span></figcaption></figure>
+          <figure class="testi" data-reveal="flip" style="--d:.16s"><span class="testi__badge">Sample</span><svg class="quote" aria-hidden="true"><use href="#i-quote"/></svg><blockquote>Patient review goes here — keep it in the patient’s own words; a short, specific review reads as more trustworthy than a long one.</blockquote><figcaption class="testi-user"><span class="av" aria-hidden="true">P</span><span><b>Patient name</b><span>Family member · Treatment</span></span></figcaption></figure>
         </div>
       </div>
     </section>
 
-    <!-- 6. OPD timings -->
-    <section class="section section--cream timings" id="timings" aria-labelledby="timings-title">
-      <div class="container timings__grid">
-        <div class="timings__head">
-          <p class="kicker" data-reveal="blur">OPD Timings</p>
-          <h2 id="timings-title" class="h2" data-split>When and where to consult Dr. Bhat</h2>
-          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Monday to Saturday at Apollo Hospitals, Bannerghatta Road, with evening sessions at the Therapy Clinic. Please call or WhatsApp to book before visiting.</p>
-
-          <ul class="timings__legend" data-reveal="blur" style="--d:.15s" aria-label="Locations">
+    <!-- OPD timings -->
+    <section class="section bg-white" id="timings" aria-labelledby="timings-title">
+      <div class="container timings-grid">
+        <div class="timings-head">
+          <span class="eyebrow" data-reveal="up">OPD Timings</span>
+          <h2 id="timings-title" data-reveal="up" style="--d:.06s">When and where to <span class="grad-text">consult Dr. Bhat</span></h2>
+          <p data-reveal="up" style="--d:.12s">Monday to Saturday at Apollo Hospitals, Bannerghatta Road, with evening sessions at the Therapy Clinic. Please call or WhatsApp to book before visiting.</p>
+          <ul class="legend" data-reveal="up" style="--d:.16s" aria-label="Locations">
             <li class="slot--opd">Apollo Bannerghatta Road — OPD</li>
             <li class="slot--ecity">Apollo One &amp; Apollo Cradle, Electronic City</li>
             <li class="slot--therapy">Therapy Clinic</li>
           </ul>
-
-          <div class="note" data-reveal="rise">
-            <p class="note__title">Second Wednesday of every month</p>
-            <p><strong>10 AM – 1 PM:</strong> Janappana and Ramnagara OPD. Then Apollo Bannerghatta Road and the Therapy Clinic as usual.</p>
-          </div>
-          <div class="note note--sos" data-reveal="rise" style="--d:.08s">
-            <p class="note__title">SOS availability</p>
-            <p>Digvish Hospital · AV Hospital (Outer Ring Road) · Promed Hospital (Banashankari 2nd Stage)</p>
-          </div>
+          <div class="feature note" data-reveal="right"><span class="f-ic"><svg class="ic"><use href="#i-cal"/></svg></span><div><h3>Second Wednesday of every month</h3><p><strong>10 AM – 1 PM:</strong> Janappana and Ramnagara OPD. Then Apollo Bannerghatta Road and the Therapy Clinic as usual.</p></div></div>
+          <div class="feature note note--sos" data-reveal="right" style="--d:.08s"><span class="f-ic"><svg class="ic"><use href="#i-heart"/></svg></span><div><h3>SOS availability</h3><p>Digvish Hospital · AV Hospital (Outer Ring Road) · Promed Hospital (Banashankari 2nd Stage)</p></div></div>
         </div>
 
-        <div class="week" data-reveal="focus" style="--d:.1s">
+        <div class="week" data-reveal="up" style="--d:.1s">
           <ol class="week__days" data-week aria-label="Weekly OPD schedule">
-              <li class="day" data-day="1">
-                <p class="day__name">Monday<em class="day__today">Today</em></p>
-                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
-              </li>
-              <li class="day" data-day="2">
-                <p class="day__name">Tuesday<em class="day__today">Today</em></p>
-                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
-              </li>
-              <li class="day" data-day="3">
-                <p class="day__name">Wednesday<em class="day__today">Today</em></p>
-                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
-              </li>
-              <li class="day" data-day="4">
-                <p class="day__name">Thursday<em class="day__today">Today</em></p>
-                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
-              </li>
-              <li class="day" data-day="5">
-                <p class="day__name">Friday<em class="day__today">Today</em></p>
-                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--ecity"><time>2 – 4 PM</time><span>Apollo One &amp; Apollo Cradle, Hosa Road, Electronic City</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
-              </li>
-              <li class="day" data-day="6">
-                <p class="day__name">Saturday<em class="day__today">Today</em></p>
-                <ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul>
-              </li>
-              <li class="day day--closed" data-day="0">
-                <p class="day__name">Sunday<em class="day__today">Today</em></p>
-                <p class="day__off">No regular OPD</p>
-              </li>
+            <li class="day" data-day="1"><p class="day__name">Monday<em class="day__today">Today</em></p><ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul></li>
+            <li class="day" data-day="2"><p class="day__name">Tuesday<em class="day__today">Today</em></p><ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul></li>
+            <li class="day" data-day="3"><p class="day__name">Wednesday<em class="day__today">Today</em></p><ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul></li>
+            <li class="day" data-day="4"><p class="day__name">Thursday<em class="day__today">Today</em></p><ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul></li>
+            <li class="day" data-day="5"><p class="day__name">Friday<em class="day__today">Today</em></p><ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--ecity"><time>2 – 4 PM</time><span>Apollo One &amp; Apollo Cradle, Hosa Road, Electronic City</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul></li>
+            <li class="day" data-day="6"><p class="day__name">Saturday<em class="day__today">Today</em></p><ul class="day__slots"><li class="slot slot--opd"><time>11 AM – 4 PM</time><span>Apollo Bannerghatta Road — OPD</span></li><li class="slot slot--therapy"><time>5 – 7 PM</time><span>Therapy Clinic</span></li></ul></li>
+            <li class="day day--closed" data-day="0"><p class="day__name">Sunday<em class="day__today">Today</em></p><p class="day__off">No regular OPD</p></li>
           </ol>
         </div>
       </div>
     </section>
 
-    <!-- 7. Appointment -->
-    <section class="section appointment" id="appointment" aria-labelledby="appt-title">
-      <div class="container appointment__grid">
-        <div class="appointment__copy">
-          <p class="kicker" data-reveal="blur">Book an Appointment</p>
-          <h2 id="appt-title" class="h2" data-split>Take the first step with a specialist</h2>
-          <p class="section-head__lead" data-reveal="blur" style="--d:.1s">Share a few details and our team will get back to you to confirm a consultation time.</p>
-          <ul class="contact-list" data-reveal="blur" style="--d:.15s">
-            <li>
-              <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></span>
-              <div><small>Call</small><a href="tel:+917899756677" data-phone-link data-phone-text>+91 78997 56677</a></div>
-            </li>
-            <li>
-              <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.3 4.3 5 5l1.2-1.3-1.8-1-1 .8c-1-.4-1.8-1.2-2.2-2.2l.8-1-1-1.8L9 9.5z"/></svg></span>
-              <div><small>WhatsApp</small><a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link data-phone-text>+91 78997 56677</a></div>
-            </li>
-            <li>
-              <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
-              <div><small>OPD</small><span data-location>Apollo Hospitals, Bannerghatta Road</span><em class="contact-list__sub">Monday – Saturday, 11 AM – 4 PM</em></div>
-            </li>
-            <li>
-              <span class="contact-list__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
-              <div><small>Evenings</small><span>Therapy Clinic</span><em class="contact-list__sub">Monday – Saturday, 5 – 7 PM · <a class="contact-list__link" href="#timings">Full timings</a></em></div>
-            </li>
-          </ul>
-          <div class="map" data-reveal="focus" style="--d:.2s">
+    <!-- Appointment / contact -->
+    <section class="section" id="appointment" aria-labelledby="appt-title">
+      <div class="container contact-grid">
+        <div>
+          <span class="eyebrow" data-reveal="up">Book an Appointment</span>
+          <h2 id="appt-title" data-reveal="up" style="--d:.06s">Take the first step <span class="grad-text">with a specialist</span></h2>
+          <p data-reveal="up" style="--d:.12s">Share a few details and our team will get back to you to confirm a consultation time.</p>
+          <div class="contact-cards">
+            <a class="c-card" href="tel:+917899756677" data-phone-link data-reveal="up"><span class="c-ic"><svg class="ic"><use href="#i-phone"/></svg></span><span><small>Call</small><b data-phone-text>+91 78997 56677</b></span></a>
+            <a class="c-card" href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link data-reveal="up" style="--d:.06s"><span class="c-ic c-ic--wa"><svg class="ic"><use href="#i-wa"/></svg></span><span><small>WhatsApp</small><b data-phone-text>+91 78997 56677</b></span></a>
+            <div class="c-card" data-reveal="up" style="--d:.12s"><span class="c-ic"><svg class="ic"><use href="#i-pin"/></svg></span><span><small>OPD</small><b data-location>Apollo Hospitals, Bannerghatta Road</b><em>Monday – Saturday, 11 AM – 4 PM</em></span></div>
+            <a class="c-card" href="#timings" data-reveal="up" style="--d:.18s"><span class="c-ic"><svg class="ic"><use href="#i-clock"/></svg></span><span><small>Evenings</small><b>Therapy Clinic</b><em>Monday – Saturday, 5 – 7 PM</em></span></a>
+          </div>
+          <div class="map" data-reveal="zoom">
             <iframe title="Map showing Apollo Hospitals, Bannerghatta Road, Bengaluru" src="https://maps.google.com/maps?q=Apollo%20Hospitals%2C%20Bannerghatta%20Road%2C%20Bengaluru&amp;z=15&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            <a class="map__link" href="https://www.google.com/maps/search/?api=1&amp;query=Apollo+Hospitals+Bannerghatta+Road+Bengaluru" target="_blank" rel="noopener">
-              Get directions
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>
-            </a>
+            <a class="map__link" href="https://www.google.com/maps/search/?api=1&amp;query=Apollo+Hospitals+Bannerghatta+Road+Bengaluru" target="_blank" rel="noopener">Get directions<svg class="ic"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
 
-        <form class="appt-form" id="appt-form" data-reveal="focus" style="--d:.1s" novalidate>
-          <p class="appt-form__title">Request an appointment</p>
-          <div class="field">
-            <input id="f-name" name="name" type="text" autocomplete="name" placeholder=" " required>
-            <label for="f-name">Patient’s name</label>
+        <form class="form-card" id="appt-form" data-reveal="left" novalidate>
+          <div class="form-card__head"><span class="s-ic"><svg class="ic"><use href="#i-cal"/></svg></span><div><h3>Request an appointment</h3><p>We’ll confirm your consultation on WhatsApp.</p></div></div>
+          <div class="form-grid">
+            <div class="form-group full"><svg class="ic"><use href="#i-users"/></svg><label class="sr-only" for="f-name">Patient’s name</label><input class="form-control" id="f-name" name="name" type="text" autocomplete="name" placeholder="Patient’s name" required><span class="err">Please enter the patient’s name</span></div>
+            <div class="form-group full"><svg class="ic"><use href="#i-phone"/></svg><label class="sr-only" for="f-phone">Phone number</label><input class="form-control" id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="Phone number" required pattern="[0-9+\s\-]{8,}"><span class="err">Please enter a valid phone number</span></div>
+            <fieldset class="field-choices full">
+              <legend>Consultation for</legend>
+              <label><input type="radio" name="who" value="Child" checked><span>A child</span></label>
+              <label><input type="radio" name="who" value="Adult"><span>An adult</span></label>
+            </fieldset>
+            <div class="form-group full"><svg class="ic"><use href="#i-drop"/></svg><label class="sr-only" for="f-topic">Reason for visit</label>
+              <select class="form-control" id="f-topic" name="topic">
+                <option value="New consultation">New consultation</option>
+                <option value="Anaemia / blood disorder">Anaemia / blood disorder</option>
+                <option value="Thalassemia">Thalassemia</option>
+                <option value="Leukaemia / lymphoma / myeloma">Leukaemia / lymphoma / myeloma</option>
+                <option value="Childhood cancer">Childhood cancer</option>
+                <option value="Bone marrow transplant">Bone marrow transplant</option>
+                <option value="Second opinion">Second opinion</option>
+              </select>
+            </div>
+            <div class="form-group full"><svg class="ic"><use href="#i-chat"/></svg><label class="sr-only" for="f-msg">Message</label><textarea class="form-control" id="f-msg" name="message" rows="3" placeholder="Anything you’d like us to know (optional)"></textarea></div>
           </div>
-          <div class="field">
-            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder=" " required pattern="[0-9+\s\-]{8,}">
-            <label for="f-phone">Phone number</label>
-          </div>
-          <fieldset class="field-choices">
-            <legend>Consultation for</legend>
-            <label><input type="radio" name="who" value="Child" checked><span>A child</span></label>
-            <label><input type="radio" name="who" value="Adult"><span>An adult</span></label>
-          </fieldset>
-          <div class="field">
-            <select id="f-topic" name="topic" required>
-              <option value="New consultation">New consultation</option>
-              <option value="Anaemia / blood disorder">Anaemia / blood disorder</option>
-              <option value="Thalassemia">Thalassemia</option>
-              <option value="Blood cancer">Leukaemia / lymphoma / myeloma</option>
-              <option value="Childhood cancer">Childhood cancer</option>
-              <option value="Bone marrow transplant">Bone marrow transplant</option>
-              <option value="Second opinion">Second opinion</option>
-            </select>
-            <label for="f-topic" class="is-static">Reason for visit</label>
-          </div>
-          <div class="field">
-            <textarea id="f-msg" name="message" rows="3" placeholder=" "></textarea>
-            <label for="f-msg">Anything you’d like us to know (optional)</label>
-          </div>
-          <button class="btn btn--primary btn--lg btn--block magnetic" type="submit">
-            Request Appointment
-            <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </button>
-          <p class="appt-form__note" role="status" aria-live="polite">Your request opens in WhatsApp so you can review and send it. For medical emergencies, please visit the nearest emergency department.</p>
+          <button class="btn btn-primary btn-block magnetic" type="submit">Request Appointment<svg class="ic"><use href="#i-arrow"/></svg></button>
+          <p class="form-note" role="status" aria-live="polite"><svg class="ic"><use href="#i-shield"/></svg><span>Your request opens in WhatsApp so you can review and send it. For medical emergencies, please visit the nearest emergency department.</span></p>
         </form>
       </div>
     </section>
@@ -472,22 +412,23 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container footer__grid">
-      <div class="footer__brand">
-        <span class="footer__logo"><img src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275" loading="lazy"></span>
+    <div class="container footer-grid">
+      <div>
+        <span class="footer-logo"><img src="assets/images/logo.png" alt="Dr. Neema Bhat, Hematologist and Pediatric Oncologist" width="928" height="275" loading="lazy"></span>
         <p>Specialist care for blood disorders, blood cancers, childhood cancers and bone marrow transplantation in Bangalore.</p>
       </div>
-      <nav class="footer__col" aria-label="Footer — explore">
-        <h2>Explore</h2>
+      <nav aria-label="Footer — explore">
+        <h2 class="footer-h">Explore</h2>
         <ul>
           <li><a href="#about">About Dr. Bhat</a></li>
           <li><a href="#treatments">Treatments</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#timings">OPD Timings</a></li>
         </ul>
       </nav>
-      <nav class="footer__col" aria-label="Footer — treatments">
-        <h2>Treatments</h2>
+      <nav aria-label="Footer — treatments">
+        <h2 class="footer-h">Treatments</h2>
         <ul>
           <li><a href="#treatments">Anaemia &amp; Thalassemia</a></li>
           <li><a href="#treatments">Leukaemia &amp; Lymphoma</a></li>
@@ -495,45 +436,42 @@
           <li><a href="#treatments">Bone Marrow Transplant</a></li>
         </ul>
       </nav>
-      <div class="footer__col">
-        <h2>Contact</h2>
-        <ul>
-          <li><a href="tel:+917899756677" data-phone-link data-phone-text>+91 78997 56677</a></li>
-          <li><a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link>WhatsApp</a></li>
-          <li><span data-location>Apollo Hospitals, Bannerghatta Road</span></li>
-          <li><a href="#timings">OPD Timings</a></li>
-          <li><a href="#appointment">Book an Appointment</a></li>
+      <div>
+        <h2 class="footer-h">Contact</h2>
+        <ul class="footer-contact">
+          <li><a href="tel:+917899756677" data-phone-link><svg class="ic"><use href="#i-phone"/></svg><span data-phone-text>+91 78997 56677</span></a></li>
+          <li><a href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link><svg class="ic"><use href="#i-wa"/></svg>WhatsApp</a></li>
+          <li><span><svg class="ic"><use href="#i-pin"/></svg><span data-location>Apollo Hospitals, Bannerghatta Road</span></span></li>
+          <li><a href="#timings"><svg class="ic"><use href="#i-clock"/></svg>Mon–Sat · 11 AM – 4 PM, 5 – 7 PM</a></li>
         </ul>
       </div>
     </div>
-    <div class="container footer__base">
+    <div class="container footer-bottom">
       <p>© <span data-year>2026</span> Dr. Neema Bhat. All rights reserved.</p>
       <p>Information on this website is for general awareness and is not a substitute for medical advice.</p>
     </div>
   </footer>
 
+  <!-- Floating actions -->
+  <a class="fab-wa" href="https://wa.me/917899756677" target="_blank" rel="noopener" data-whatsapp-link aria-label="Chat on WhatsApp"><svg class="ic"><use href="#i-wa"/></svg></a>
+  <button class="to-top" type="button" aria-label="Back to top"><svg class="ic"><use href="#i-up"/></svg></button>
+
+  <!-- Mobile app tab bar -->
+  <nav class="tabbar" aria-label="Quick navigation">
+    <a href="#top" class="active"><svg class="ic"><use href="#i-home"/></svg>Home</a>
+    <a href="#treatments"><svg class="ic"><use href="#i-grid"/></svg>Treatments</a>
+    <a href="#appointment" class="tab-book"><span class="fab"><svg class="ic"><use href="#i-cal"/></svg></span>Book</a>
+    <a href="#timings"><svg class="ic"><use href="#i-clock"/></svg>Timings</a>
+    <a href="tel:+917899756677" data-phone-link><svg class="ic"><use href="#i-phone"/></svg>Call</a>
+  </nav>
+
   <!-- Photo viewer -->
   <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
     <button class="lightbox__close" type="button" aria-label="Close photo viewer">×</button>
     <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo">‹</button>
-    <figure>
-      <img src="" alt="">
-      <figcaption></figcaption>
-    </figure>
+    <figure><img src="" alt=""><figcaption></figcaption></figure>
     <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">›</button>
   </dialog>
-
-  <!-- Mobile sticky CTA -->
-  <div class="mobile-cta" role="region" aria-label="Quick contact">
-    <a class="mobile-cta__book" href="#appointment">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-      Book Appointment
-    </a>
-    <a class="mobile-cta__call" href="tel:+917899756677" data-phone-link>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
-      Call
-    </a>
-  </div>
 
   <script src="assets/js/main.js" defer></script>
 </body>

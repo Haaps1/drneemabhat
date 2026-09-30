@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Dr. Neema Bhat — Homepage interactions
+   Dr. Neema Bhat — site interactions
    ========================================================================== */
 
 /* Contact details — update here and every phone link / label on the page follows. */
@@ -18,6 +18,7 @@ const CONFIG = {
   const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
   const $ = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+  const openWhatsApp = (lines) => window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(lines.filter(Boolean).join('\n'))}`, '_blank', 'noopener');
 
   /* ---------- Contact config ---------- */
   $$('[data-phone-link]').forEach((a) => { a.href = `tel:${CONFIG.phoneE164}`; });
@@ -26,138 +27,68 @@ const CONFIG = {
   $$('[data-location]').forEach((el) => { el.textContent = CONFIG.location; });
   $$('[data-year]').forEach((el) => { el.textContent = new Date().getFullYear(); });
 
-  /* ---------- Split headings into words ---------- */
-  $$('[data-split]').forEach((el) => {
-    const words = el.textContent.trim().split(/\s+/);
-    el.setAttribute('aria-label', words.join(' '));
-    el.innerHTML = words
-      .map((w, i) => `<span class="w" aria-hidden="true"><span class="w__i" style="--wi:${i}">${w.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</span></span>`)
-      .join(' ');
-  });
-
   /* ---------- Reveal on scroll ---------- */
-  const revealEls = $$('[data-reveal], [data-split]');
+  const revealEls = $$('[data-reveal]');
   if (reduceMotion || !('IntersectionObserver' in window)) {
-    revealEls.forEach((el) => el.classList.add('is-in', 'is-settled'));
+    revealEls.forEach((el) => el.classList.add('in', 'settled'));
   } else {
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const el = entry.target;
-        el.classList.add('is-in');
+        el.classList.add('in');
         const delay = parseFloat(getComputedStyle(el).getPropertyValue('--d')) || 0;
-        setTimeout(() => el.classList.add('is-settled'), 1400 + delay * 1000);
+        setTimeout(() => el.classList.add('settled'), 1000 + delay * 1000);
         io.unobserve(el);
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
     revealEls.forEach((el) => io.observe(el));
   }
 
-  /* ---------- Navigation ---------- */
-  const header = $('.site-header');
-  const nav = $('.nav');
-  const toggle = $('.nav__toggle');
-  const links = $('#nav-links');
-  const mobileCta = $('.mobile-cta');
-  const hero = $('.hero');
-
-  $$('li', links).forEach((li, i) => li.style.setProperty('--li', i));
-
-  const setMenu = (open) => {
-    nav.classList.toggle('is-open', open);
-    document.body.classList.toggle('menu-open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    if (open) $('a', links)?.focus({ preventScroll: true });
-  };
-  toggle.addEventListener('click', () => setMenu(!nav.classList.contains('is-open')));
-  links.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.classList.contains('is-open')) { setMenu(false); toggle.focus(); }
-  });
-  window.matchMedia('(min-width: 961px)').addEventListener('change', (e) => { if (e.matches) setMenu(false); });
-
+  /* ---------- Header, progress bar, back-to-top, active links ---------- */
+  const header = $('.header');
+  const progress = $('.scroll-progress');
+  const toTop = $('.to-top');
   let ticking = false;
   const onScroll = () => {
     const y = window.scrollY;
     const max = document.documentElement.scrollHeight - window.innerHeight;
-    header.classList.toggle('is-scrolled', y > 12);
-    if (y < hero.offsetHeight * 0.5) navMap.forEach((l) => l.classList.remove('is-active'));
-    header.style.setProperty('--progress', max > 0 ? (y / max).toFixed(4) : 0);
-    if (mobileCta) mobileCta.classList.toggle('is-visible', y > hero.offsetHeight * 0.55);
+    header.classList.toggle('scrolled', y > 10);
+    progress.style.transform = `scaleX(${max > 0 ? (y / max).toFixed(4) : 0})`;
+    toTop.classList.toggle('show', y > 700);
     ticking = false;
   };
-  window.addEventListener('scroll', () => {
-    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
-  }, { passive: true });
+  window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
-  // Active nav link
-  const navMap = new Map($$('a[href^="#"]', links).map((a) => [a.getAttribute('href').slice(1), a]));
+  const navLinks = $$('.nav-links a, .tabbar a[href^="#"]');
+  const setActive = (id) => navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === `#${id}`));
   if ('IntersectionObserver' in window) {
     const spy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const a = navMap.get(entry.target.id);
-        if (a && entry.isIntersecting) {
-          navMap.forEach((l) => l.classList.remove('is-active'));
-          a.classList.add('is-active');
-        }
-      });
+      entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id || 'top'); });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    navMap.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+    [$('.hero'), ...['about', 'treatments', 'gallery', 'timings', 'appointment'].map((id) => document.getElementById(id))]
+      .forEach((el) => el && spy.observe(el));
   }
 
-  /* ---------- Pointer effects: spotlight, tilt, magnetic, parallax ---------- */
+  /* ---------- Pointer effects: magnetic buttons, hero parallax ---------- */
   if (finePointer && !reduceMotion) {
-    $$('.spotlight').forEach((card) => {
-      const isTilt = card.classList.contains('tilt');
-      card.addEventListener('pointermove', (e) => {
-        const r = card.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width;
-        const y = (e.clientY - r.top) / r.height;
-        card.style.setProperty('--mx', `${x * 100}%`);
-        card.style.setProperty('--my', `${y * 100}%`);
-        if (isTilt) {
-          card.style.setProperty('--rx', `${((0.5 - y) * 6).toFixed(2)}deg`);
-          card.style.setProperty('--ry', `${((x - 0.5) * 6).toFixed(2)}deg`);
-        }
-      });
-      if (isTilt) {
-        card.addEventListener('pointerleave', () => {
-          card.style.setProperty('--rx', '0deg');
-          card.style.setProperty('--ry', '0deg');
-        });
-      }
-    });
-
     $$('.magnetic').forEach((btn) => {
       btn.addEventListener('pointermove', (e) => {
         const r = btn.getBoundingClientRect();
-        const dx = e.clientX - (r.left + r.width / 2);
-        const dy = e.clientY - (r.top + r.height / 2);
-        btn.style.setProperty('--bx', `${clamp(dx * 0.18, -7, 7)}px`);
-        btn.style.setProperty('--by', `${clamp(dy * 0.28, -5, 5)}px`);
-        btn.style.setProperty('--hx', `${e.clientX - r.left}px`);
-        btn.style.setProperty('--hy', `${e.clientY - r.top}px`);
+        btn.style.setProperty('--bx', `${clamp((e.clientX - (r.left + r.width / 2)) * 0.18, -7, 7)}px`);
+        btn.style.setProperty('--by', `${clamp((e.clientY - (r.top + r.height / 2)) * 0.28, -5, 5)}px`);
       });
-      btn.addEventListener('pointerleave', () => {
-        btn.style.setProperty('--bx', '0px');
-        btn.style.setProperty('--by', '0px');
-      });
+      btn.addEventListener('pointerleave', () => { btn.style.setProperty('--bx', '0px'); btn.style.setProperty('--by', '0px'); });
     });
-
-    const portrait = $('[data-parallax]');
-    const host = portrait?.closest('section');
-    if (portrait && host) {
-      host.addEventListener('pointermove', (e) => {
-        const nx = e.clientX / window.innerWidth - 0.5;
-        const ny = e.clientY / window.innerHeight - 0.5;
-        portrait.style.setProperty('--px', `${(nx * -12).toFixed(1)}px`);
-        portrait.style.setProperty('--py', `${(ny * -8).toFixed(1)}px`);
+    const img = $('[data-parallax]');
+    const hero = $('.hero');
+    if (img && hero) {
+      hero.addEventListener('pointermove', (e) => {
+        img.style.setProperty('--px', `${((e.clientX / window.innerWidth - 0.5) * -14).toFixed(1)}px`);
+        img.style.setProperty('--py', `${((e.clientY / window.innerHeight - 0.5) * -10).toFixed(1)}px`);
       });
-      host.addEventListener('pointerleave', () => {
-        portrait.style.setProperty('--px', '0px');
-        portrait.style.setProperty('--py', '0px');
-      });
+      hero.addEventListener('pointerleave', () => { img.style.setProperty('--px', '0px'); img.style.setProperty('--py', '0px'); });
     }
   }
 
@@ -336,7 +267,7 @@ const CONFIG = {
         if (!this.dark && w > 960) fade = clamp((x / w - 0.4) / 0.2, 0, 1) * 0.85 + 0.04;
         else if (!this.dark) fade = 0.35;
         if (fade <= 0.01) continue;
-        ctx.globalAlpha = (0.3 + c.z * 0.5) * fade;
+        ctx.globalAlpha = (0.3 + c.z * 0.5) * fade * 0.7;
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(c.rot);
@@ -359,45 +290,117 @@ const CONFIG = {
 
   $$('.cells-canvas').forEach((cv) => new CellField(cv, { dark: cv.classList.contains('cells-canvas--dark') }));
 
-  /* ---------- Hero headline rotator ---------- */
-  const rot = $('[data-rotator]');
-  if (rot && !reduceMotion) {
-    const words = rot.dataset.words.split('|');
-    const el = $('.rotator__word', rot);
-    const HOLD = 2600;
-    let i = 0;
-    const title = rot.closest('h1');
-    title.style.setProperty('--rot-ms', `${HOLD}ms`);
-    // one span per letter; spaces stay real spaces so long phrases can wrap
-    const chars = (w) => w.split(' ').map((word) => `<span style="display:inline-block;white-space:nowrap">${
-      word.split('').map((ch) => `<span class="rotator__char">${ch}</span>`).join('')}</span>`).join(' ');
-    const animateChars = (dir) => {
-      const cs = $$('.rotator__char', el);
-      return Promise.all(cs.map((c, k) => c.animate(
-        dir === 'in'
-          ? [{ opacity: 0, filter: 'blur(8px)', transform: 'rotateX(-80deg) translateY(.2em)' }, { opacity: 1, filter: 'blur(0)', transform: 'none' }]
-          : [{ opacity: 1, filter: 'blur(0)', transform: 'none' }, { opacity: 0, filter: 'blur(8px)', transform: 'rotateX(80deg) translateY(-.2em)' }],
-        { duration: dir === 'in' ? 520 : 360, delay: k * (dir === 'in' ? 28 : 14), easing: 'cubic-bezier(.22,.8,.24,1)', fill: 'both' }
-      ).finished));
-    };
-    let paused = false;
-    const cycle = async () => {
-      title.classList.remove('is-timing'); void title.offsetWidth; title.classList.add('is-timing');
-      await new Promise((r) => setTimeout(r, HOLD));
-      while (paused || document.hidden) await new Promise((r) => setTimeout(r, 300));
-      await animateChars('out');
-      i = (i + 1) % words.length;
-      el.innerHTML = chars(words[i]);
-      await animateChars('in');
-      cycle();
-    };
-    el.innerHTML = chars(words[0]);
+  /* ---------- Hero headline: typewriter ---------- */
+  const typed = $('[data-typed]');
+  if (typed && !reduceMotion) {
+    const words = typed.dataset.words.split('|');
+    const title = typed.closest('h1');
+    let w = 0, paused = false;
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
     title.addEventListener('pointerenter', () => { paused = true; });
     title.addEventListener('pointerleave', () => { paused = false; });
-    setTimeout(cycle, 900);
-  } else if (rot) {
-    // Reduced motion: show the full headline instead of rotating it
-    rot.closest('h1').classList.add('is-static');
+    (async function loop() {
+      await wait(2200);
+      for (;;) {
+        while (paused || document.hidden) await wait(300);
+        const cur = words[w];
+        for (let i = cur.length; i >= 0; i--) { typed.textContent = cur.slice(0, i); await wait(32); }
+        await wait(220);
+        w = (w + 1) % words.length;
+        const next = words[w];
+        for (let i = 1; i <= next.length; i++) { typed.textContent = next.slice(0, i); await wait(70); }
+        await wait(2200);
+      }
+    })();
+  } else if (typed) {
+    typed.closest('h1').classList.add('is-static');
+  }
+
+  /* ---------- Condition search ---------- */
+  const search = $('#cond-search');
+  const results = $('#search-results');
+  const cards = $$('.svc-card:not(.svc-card--extra)');
+  const EXTRA = {
+    'Anaemia Treatment': 'iron deficiency low hemoglobin haemoglobin tired pale',
+    'Thalassemia Treatment': 'thalassaemia transfusion chelation',
+    'Hemophilia & Bleeding Disorders': 'haemophilia bleeding bruising platelets itp von willebrand clotting',
+    'Leukaemia (Blood Cancer)': 'leukemia blood cancer aml all cml cll',
+    'Lymphoma & Myeloma': 'hodgkin non-hodgkin lymph node multiple myeloma',
+    'Childhood Leukaemia & Lymphoma': 'child children kids leukemia pediatric cancer',
+    'Pediatric Solid Tumours': 'tumor tumour neuroblastoma wilms sarcoma retinoblastoma child',
+    'Pediatric Blood Disorders': 'sickle cell aplastic anemia itp immune child',
+    'Bone Marrow Transplant': 'bmt stem cell transplant donor autologous allogeneic',
+  };
+  if (search && results) {
+    let hl = -1;
+    const items = cards.map((c) => {
+      const title = $('h3', c).textContent;
+      return { title, card: c, text: `${title} ${$('p', c).textContent} ${EXTRA[title] || ''}`.toLowerCase() };
+    });
+    const close = () => { results.classList.remove('show'); search.setAttribute('aria-expanded', 'false'); hl = -1; };
+    const go = (item) => {
+      close();
+      search.value = item.title;
+      applyFilter('all');
+      item.card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      item.card.animate([{ boxShadow: '0 0 0 0 rgba(79,182,187,.7)' }, { boxShadow: '0 0 0 14px rgba(79,182,187,0)' }], { duration: 1200, iterations: 2 });
+    };
+    const render = () => {
+      const q = search.value.trim().toLowerCase();
+      if (!q) { close(); return; }
+      const found = items.filter((it) => q.split(/\s+/).every((t) => it.text.includes(t)));
+      results.innerHTML = found.length
+        ? found.map((it, i) => `<a href="#treatments" role="option" data-i="${items.indexOf(it)}" id="sr-${i}"><svg class="ic"><use href="#i-drop"/></svg>${it.title}</a>`).join('')
+        : '<div class="empty">No match — call or WhatsApp and we’ll help.</div>';
+      results.classList.add('show');
+      search.setAttribute('aria-expanded', 'true');
+      hl = -1;
+    };
+    search.addEventListener('input', render);
+    search.addEventListener('keydown', (e) => {
+      const links = $$('a', results);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!links.length) return;
+        hl = (hl + (e.key === 'ArrowDown' ? 1 : -1) + links.length) % links.length;
+        links.forEach((l, i) => l.classList.toggle('hl', i === hl));
+        search.setAttribute('aria-activedescendant', links[hl].id);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const pick = links[hl >= 0 ? hl : 0];
+        if (pick) go(items[+pick.dataset.i]);
+      } else if (e.key === 'Escape') close();
+    });
+    results.addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a) { e.preventDefault(); go(items[+a.dataset.i]); }
+    });
+    $('.search-box button').addEventListener('click', () => { render(); const first = $('a', results); if (first) go(items[+first.dataset.i]); });
+    document.addEventListener('click', (e) => { if (!e.target.closest('.search-box')) close(); });
+  }
+
+  /* ---------- Treatment filter ---------- */
+  const chips = $$('.filter-bar .chip');
+  function applyFilter(f) {
+    chips.forEach((c) => { const on = c.dataset.filter === f; c.classList.toggle('active', on); c.setAttribute('aria-pressed', String(on)); });
+    $$('.svc-card').forEach((c, i) => {
+      const show = f === 'all' || c.dataset.cat === f || c.dataset.cat === 'all';
+      c.classList.toggle('hide', !show);
+      if (show && !reduceMotion) c.animate([{ opacity: 0, transform: 'translateY(24px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: (i % 4) * 50, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' });
+    });
+  }
+  chips.forEach((c) => c.addEventListener('click', () => applyFilter(c.dataset.filter)));
+
+  /* ---------- Count-up numbers ---------- */
+  const counters = $$('[data-count]');
+  if (counters.length && !reduceMotion && 'IntersectionObserver' in window) {
+    const run = (el) => {
+      const end = +el.dataset.count, t0 = performance.now(), dur = 1600;
+      const step = (t) => { const k = Math.min(1, (t - t0) / dur); el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
+      el.textContent = '0'; requestAnimationFrame(step);
+    };
+    const cio = new IntersectionObserver((entries) => entries.forEach((e) => { if (e.isIntersecting) { run(e.target); cio.unobserve(e.target); } }), { threshold: 0.6 });
+    counters.forEach((el) => cio.observe(el));
   }
 
   /* ---------- OPD timings: highlight today (India time) ---------- */
@@ -408,118 +411,69 @@ const CONFIG = {
     if (today) { today.classList.add('is-today'); today.setAttribute('aria-current', 'date'); }
   }
 
-  /* ---------- Treatments filter ---------- */
-  const filter = $('.treat-filter');
-  const groups = $('[data-treatments]');
-  if (filter && groups) {
-    const btns = $$('button', filter);
-    const thumb = $('.treat-filter__thumb', filter);
-    const moveThumb = (b) => {
-      thumb.style.setProperty('--tx', `${b.offsetLeft}px`);
-      thumb.style.setProperty('--tw', `${b.offsetWidth}px`);
-    };
-    const apply = (b) => {
-      const f = b.dataset.filter;
-      btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
-      moveThumb(b);
-      if (f === 'all') delete groups.dataset.filter; else groups.dataset.filter = f;
-      if (reduceMotion) return;
-      $$('.treat-group', groups).forEach((g) => {
-        $$('.treat, .treat-group__head', g).forEach((el, i) => el.style.setProperty('--i', i));
-        g.classList.remove('is-entering');
-        void g.offsetWidth;
-        g.classList.add('is-entering');
-      });
-    };
-    btns.forEach((b) => b.addEventListener('click', () => apply(b)));
-    const current = () => btns.find((b) => b.getAttribute('aria-pressed') === 'true');
-    moveThumb(current());
-    new ResizeObserver(() => moveThumb(current())).observe(filter);
-    document.fonts?.ready.then(() => moveThumb(current()));
-  }
-
-  /* ---------- Count-up numbers ---------- */
-  const counters = $$('[data-count]');
-  if (counters.length && !reduceMotion && 'IntersectionObserver' in window) {
-    const run = (el) => {
-      const end = +el.dataset.count;
-      const t0 = performance.now();
-      const dur = 1600;
-      const step = (t) => {
-        const k = Math.min(1, (t - t0) / dur);
-        el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3)));
-        if (k < 1) requestAnimationFrame(step);
-      };
-      el.textContent = '0';
-      requestAnimationFrame(step);
-    };
-    const cio = new IntersectionObserver((entries) => {
-      entries.forEach((e) => { if (e.isIntersecting) { run(e.target); cio.unobserve(e.target); } });
-    }, { threshold: 0.6 });
-    counters.forEach((el) => cio.observe(el));
-  }
-
   /* ---------- Gallery lightbox ---------- */
   const lb = $('#lightbox');
   const shots = $$('[data-gallery] .shot__btn');
   if (lb && shots.length && typeof lb.showModal === 'function') {
-    const img = $('img', lb);
-    const cap = $('figcaption', lb);
+    const img = $('img', lb), cap = $('figcaption', lb);
     let idx = 0, opener = null;
     const show = (i) => {
       idx = (i + shots.length) % shots.length;
       const b = shots[idx];
-      const thumb = $('img', b);
-      img.src = b.dataset.full;
-      img.alt = thumb.alt;
-      cap.textContent = $('.shot__cap', b).textContent;
-      if (!reduceMotion) img.animate([{ opacity: 0, filter: 'blur(8px)' }, { opacity: 1, filter: 'blur(0)' }], { duration: 450, easing: 'ease-out' });
+      img.src = b.dataset.full; img.alt = $('img', b).alt; cap.textContent = $('.shot__cap', b).textContent;
+      if (!reduceMotion) img.animate([{ opacity: 0, transform: 'scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 400, easing: 'ease-out' });
     };
     shots.forEach((b, i) => b.addEventListener('click', () => { opener = b; show(i); lb.showModal(); }));
     $('.lightbox__close', lb).addEventListener('click', () => lb.close());
     $('.lightbox__nav--prev', lb).addEventListener('click', () => show(idx - 1));
     $('.lightbox__nav--next', lb).addEventListener('click', () => show(idx + 1));
-    lb.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') show(idx - 1);
-      if (e.key === 'ArrowRight') show(idx + 1);
-    });
+    lb.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1); });
     lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
     lb.addEventListener('close', () => opener?.focus());
   }
 
-  /* ---------- Appointment form → WhatsApp ---------- */
+  /* ---------- Forms → WhatsApp ---------- */
+  const validate = (form, sels) => {
+    let first = null;
+    sels.forEach((sel) => {
+      const input = $(sel, form);
+      const ok = input.checkValidity() && input.value.trim() !== '';
+      input.closest('.form-group').classList.toggle('invalid', !ok);
+      input.setAttribute('aria-invalid', String(!ok));
+      if (!ok && !first) first = input;
+    });
+    if (first) first.focus();
+    return !first;
+  };
+  $$('[data-topic]').forEach((a) => a.addEventListener('click', () => { const t = $('#f-topic'); if (t) t.value = a.dataset.topic; }));
+
+  const lead = $('#lead-form');
+  if (lead) {
+    lead.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const note = $('.lead-card__note', lead);
+      if (!validate(lead, ['#l-name', '#l-phone'])) { note.textContent = 'Please add your name and a valid mobile number.'; return; }
+      const d = new FormData(lead);
+      note.textContent = 'Opening WhatsApp with your request…';
+      openWhatsApp(['Hello, please call me back to book a consultation with Dr. Neema Bhat.', `Name: ${d.get('name')}`, `Mobile: ${d.get('phone')}`, `Concern: ${d.get('topic')}`]);
+    });
+  }
+
   const form = $('#appt-form');
   if (form) {
-    const topic = $('#f-topic', form);
-    $$('[data-topic]').forEach((a) => a.addEventListener('click', () => { topic.value = a.dataset.topic; }));
-
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      let firstInvalid = null;
-      ['#f-name', '#f-phone'].forEach((sel) => {
-        const input = $(sel, form);
-        const ok = input.checkValidity() && input.value.trim() !== '';
-        input.closest('.field').classList.toggle('is-invalid', !ok);
-        input.setAttribute('aria-invalid', String(!ok));
-        if (!ok && !firstInvalid) firstInvalid = input;
-      });
-      const note = $('.appt-form__note', form);
-      if (firstInvalid) {
-        note.textContent = 'Please add the patient’s name and a valid phone number.';
-        firstInvalid.focus();
-        return;
-      }
-      const data = new FormData(form);
-      const msg = [
-        'Hello, I would like to request an appointment with Dr. Neema Bhat.',
-        `Patient: ${data.get('name')} (${data.get('who')})`,
-        `Phone: ${data.get('phone')}`,
-        `Reason: ${data.get('topic')}`,
-        data.get('message') ? `Notes: ${data.get('message')}` : '',
-      ].filter(Boolean).join('\n');
+      const note = $('.form-note span', form);
+      if (!validate(form, ['#f-name', '#f-phone'])) { note.textContent = 'Please add the patient’s name and a valid phone number.'; return; }
+      const d = new FormData(form);
       note.textContent = 'Opening WhatsApp with your request…';
-      window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
+      openWhatsApp([
+        'Hello, I would like to request an appointment with Dr. Neema Bhat.',
+        `Patient: ${d.get('name')} (${d.get('who')})`, `Phone: ${d.get('phone')}`, `Reason: ${d.get('topic')}`,
+        d.get('message') ? `Notes: ${d.get('message')}` : '',
+      ]);
     });
+    $$('.form-control', form).forEach((i) => i.addEventListener('input', () => i.closest('.form-group')?.classList.remove('invalid')));
   }
 
   onScroll();
